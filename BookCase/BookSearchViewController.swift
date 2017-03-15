@@ -25,7 +25,8 @@ class BookSearchViewController: UIViewController {
         GoogleBooksAPI.shared.searchGoogleBooks(searchTerm) { (result) in
             switch result {
             case .success:
-                debugPrint("Google Books Search was successful")
+                debugPrint("Google Books Search was successful:")
+                dump(Book.shared.bookData)
             case .failure:
                 debugPrint("Something went wrong with the Google Books Search")
             }

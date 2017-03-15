@@ -48,7 +48,7 @@ class GoogleBooksAPI {
                 return
             }
             
-            debugPrint("Items: \(items)")
+            Book.shared.bookData = createListOfBooks(items)
             
             completionHandler(.success)
             
