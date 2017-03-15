@@ -10,6 +10,7 @@ import Foundation
 
 enum SearchGoogleBooksResult {
     case success
+    case nothingFound
     case failure
 }
 
@@ -39,6 +40,12 @@ class GoogleBooksAPI {
             
             guard let parsedResult = self.getResult(data: data, response: response, error: error) else {
                 completionHandler(.failure)
+                return
+            }
+            
+            // was anything found by the search term?
+            guard let totalItems = parsedResult[GoogleBooksAPI.GoogleBooksResponseKeys.TotalItems] as? Int, totalItems > 0 else {
+                completionHandler(.nothingFound)
                 return
             }
             

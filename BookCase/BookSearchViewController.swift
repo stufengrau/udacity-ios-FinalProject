@@ -27,8 +27,10 @@ class BookSearchViewController: UIViewController {
             case .success:
                 debugPrint("Google Books Search was successful:")
                 dump(Book.shared.bookData)
+            case .nothingFound:
+                debugPrint("Nothing found for: \(searchTerm)")
             case .failure:
-                debugPrint("Something went wrong with the Google Books Search")
+                debugPrint("Network failure. Please try again later.")
             }
         }
     }

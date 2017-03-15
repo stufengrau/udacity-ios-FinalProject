@@ -1,6 +1,6 @@
 //
 //  GoogleBooksConstants.swift
-//  BookLibrary
+//  BookCase
 //
 //  Created by heike on 14/03/2017.
 //  Copyright © 2017 stufengrau. All rights reserved.
@@ -31,6 +31,7 @@ extension GoogleBooksAPI {
     
     // MARK: Google Books Response Keys
     struct GoogleBooksResponseKeys {
+        static let TotalItems = "totalItems"
         static let Items = "items"
         static let VolumeInfo = "volumeInfo"
         static let Title = "title"
