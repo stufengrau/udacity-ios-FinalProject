@@ -15,6 +15,7 @@
 		E24B10C01E79776B008FF55B /* GoogleBooksAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10BE1E79776B008FF55B /* GoogleBooksAPIKey.swift */; };
 		E24B10C11E79776B008FF55B /* GoogleBooksConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10BF1E79776B008FF55B /* GoogleBooksConstants.swift */; };
 		E24B10C31E79778C008FF55B /* GoogleBooksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10C21E79778C008FF55B /* GoogleBooksAPI.swift */; };
+		E24B10C71E798992008FF55B /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10C61E798992008FF55B /* Book.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E24B10BE1E79776B008FF55B /* GoogleBooksAPIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPIKey.swift; sourceTree = "<group>"; };
 		E24B10BF1E79776B008FF55B /* GoogleBooksConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksConstants.swift; sourceTree = "<group>"; };
 		E24B10C21E79778C008FF55B /* GoogleBooksAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPI.swift; sourceTree = "<group>"; };
+		E24B10C61E798992008FF55B /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +62,10 @@
 		E24B10AA1E7975DE008FF55B /* BookCase */ = {
 			isa = PBXGroup;
 			children = (
-				E24B10BD1E79773A008FF55B /* NetworkAPI */,
 				E24B10AB1E7975DE008FF55B /* AppDelegate.swift */,
-				E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */,
+				E24B10BD1E79773A008FF55B /* NetworkAPI */,
+				E24B10C51E79824E008FF55B /* Model */,
+				E24B10C41E79820F008FF55B /* ViewController */,
 				E24B10AF1E7975DE008FF55B /* Main.storyboard */,
 				E24B10B21E7975DE008FF55B /* Assets.xcassets */,
 				E24B10B41E7975DE008FF55B /* LaunchScreen.storyboard */,
@@ -79,6 +82,22 @@
 				E24B10BF1E79776B008FF55B /* GoogleBooksConstants.swift */,
 			);
 			name = NetworkAPI;
+			sourceTree = "<group>";
+		};
+		E24B10C41E79820F008FF55B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		E24B10C51E79824E008FF55B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E24B10C61E798992008FF55B /* Book.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +175,7 @@
 			files = (
 				E24B10AE1E7975DE008FF55B /* BookSearchViewController.swift in Sources */,
 				E24B10C11E79776B008FF55B /* GoogleBooksConstants.swift in Sources */,
+				E24B10C71E798992008FF55B /* Book.swift in Sources */,
 				E24B10C01E79776B008FF55B /* GoogleBooksAPIKey.swift in Sources */,
 				E24B10AC1E7975DE008FF55B /* AppDelegate.swift in Sources */,
 				E24B10C31E79778C008FF55B /* GoogleBooksAPI.swift in Sources */,
