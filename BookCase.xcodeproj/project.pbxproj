@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E24B10AC1E7975DE008FF55B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10AB1E7975DE008FF55B /* AppDelegate.swift */; };
-		E24B10AE1E7975DE008FF55B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10AD1E7975DE008FF55B /* ViewController.swift */; };
+		E24B10AE1E7975DE008FF55B /* BookSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */; };
 		E24B10B11E7975DE008FF55B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E24B10AF1E7975DE008FF55B /* Main.storyboard */; };
 		E24B10B31E7975DE008FF55B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E24B10B21E7975DE008FF55B /* Assets.xcassets */; };
 		E24B10B61E7975DE008FF55B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E24B10B41E7975DE008FF55B /* LaunchScreen.storyboard */; };
@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		E24B10A81E7975DE008FF55B /* BookCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24B10AB1E7975DE008FF55B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E24B10AD1E7975DE008FF55B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewController.swift; sourceTree = "<group>"; };
 		E24B10B01E7975DE008FF55B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E24B10B21E7975DE008FF55B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E24B10B51E7975DE008FF55B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			children = (
 				E24B10BD1E79773A008FF55B /* NetworkAPI */,
 				E24B10AB1E7975DE008FF55B /* AppDelegate.swift */,
-				E24B10AD1E7975DE008FF55B /* ViewController.swift */,
+				E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */,
 				E24B10AF1E7975DE008FF55B /* Main.storyboard */,
 				E24B10B21E7975DE008FF55B /* Assets.xcassets */,
 				E24B10B41E7975DE008FF55B /* LaunchScreen.storyboard */,
@@ -154,7 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E24B10AE1E7975DE008FF55B /* ViewController.swift in Sources */,
+				E24B10AE1E7975DE008FF55B /* BookSearchViewController.swift in Sources */,
 				E24B10C11E79776B008FF55B /* GoogleBooksConstants.swift in Sources */,
 				E24B10C01E79776B008FF55B /* GoogleBooksAPIKey.swift in Sources */,
 				E24B10AC1E7975DE008FF55B /* AppDelegate.swift in Sources */,
