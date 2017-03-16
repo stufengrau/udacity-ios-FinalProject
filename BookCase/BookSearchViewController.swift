@@ -8,21 +8,29 @@
 
 import UIKit
 
-class BookSearchViewController: UIViewController {
+class BookSearchViewController: UIViewController, UISearchBarDelegate {
 
+    @IBOutlet weak var googleBooksSearchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        googleBooksSearchBar.delegate = self
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func searchGoogleBooks(_ sender: UIButton) {
-        let searchTerm = "vim"
-        GoogleBooksAPI.shared.searchGoogleBooks(searchTerm) { (result) in
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        // dismiss keyboard
+        googleBooksSearchBar.endEditing(true)
+        
+        guard let searchTerm = googleBooksSearchBar.text else {
+            assertionFailure("searchTerm should not be empty")
+            return
+        }
+    
+        let concatenatedSearchTerm = searchTerm.replacingOccurrences(of: " ", with: "+")
+            
+        GoogleBooksAPI.shared.searchGoogleBooks(concatenatedSearchTerm) { (result) in
             switch result {
             case .success:
                 debugPrint("Google Books Search was successful:")
@@ -33,7 +41,9 @@ class BookSearchViewController: UIViewController {
                 debugPrint("Network failure. Please try again later.")
             }
         }
+        
     }
 
 }
+
 

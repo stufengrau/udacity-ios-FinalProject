@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="2RN-VA-A7w">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Book Search View Controller-->
+        <!--Book Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="BookSearchViewController" customModule="BookCase" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,23 +21,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwC-oi-jny">
-                                <rect key="frame" x="114" y="318" width="147" height="30"/>
-                                <state key="normal" title="Search Google Books"/>
-                                <connections>
-                                    <action selector="searchGoogleBooks:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UUu-9r-Bo7"/>
-                                </connections>
-                            </button>
+                            <searchBar contentMode="redraw" prompt="Google Books Online Search" placeholder="Search for title, author, ISBN, etc." translatesAutoresizingMaskIntoConstraints="NO" id="AK1-MH-Q4x">
+                                <rect key="frame" x="0.0" y="64" width="375" height="75"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ZwC-oi-jny" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ddY-UK-QwM"/>
-                            <constraint firstItem="ZwC-oi-jny" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f2s-QD-F9h"/>
+                            <constraint firstAttribute="trailing" secondItem="AK1-MH-Q4x" secondAttribute="trailing" id="Al0-Yr-h45"/>
+                            <constraint firstItem="AK1-MH-Q4x" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="jJM-tV-X1t"/>
+                            <constraint firstItem="AK1-MH-Q4x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rxB-iA-A5W"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Book Search" id="SCE-YH-hct"/>
+                    <connections>
+                        <outlet property="googleBooksSearchBar" destination="AK1-MH-Q4x" id="KkE-4a-M5X"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="972" y="37.331334332833585"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lEN-qX-0V5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2RN-VA-A7w" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ngU-NA-UER">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="aAI-t7-abh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="75W-iI-7HR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="134" y="37"/>
         </scene>
     </scenes>
 </document>
