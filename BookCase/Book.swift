@@ -22,7 +22,7 @@ struct BookData {
     let coverURL: String?
     let title: String
     let subtitle: String?
-    let authors: [String]?
+    let authors: [String]
     let publisher: String?
     let publishedDate: Date?
     let pages: Int?
@@ -44,8 +44,8 @@ struct BookData {
         self.publisher = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         self.pages = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         self.publishedDate = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? Date
-        self.authors = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String]
-        
+        self.authors = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+
     }
 }
 
@@ -68,6 +68,12 @@ func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [BookData] {
     
     return result
     
+}
+
+func rewriteLinkToHttps(url: String) -> String {
+
+        return url.replacingOccurrences(of: "http://", with: "https://")
+
 }
 
 
