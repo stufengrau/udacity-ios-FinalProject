@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,17 +31,86 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PVw-jW-B5E">
+                                <rect key="frame" x="0.0" y="139" width="375" height="528"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookOverviewCell" rowHeight="89" id="IOQ-hQ-jtN" customClass="BookOverviewTableViewCell" customModule="BookCase" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="89"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOQ-hQ-jtN" id="QeI-bw-lRC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titel" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Reh-bg-Dae">
+                                                    <rect key="frame" x="70.5" y="8" width="296.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publisher" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPH-LX-Izj">
+                                                    <rect key="frame" x="70.5" y="46.5" width="296.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SOc-q4-GQX">
+                                                    <rect key="frame" x="8" y="8" width="54.5" height="72.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="SOc-q4-GQX" secondAttribute="height" multiplier="3:4" id="otR-ka-0yf"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authors" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te5-J9-Qwf">
+                                                    <rect key="frame" x="70.5" y="28.5" width="296.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Reh-bg-Dae" firstAttribute="top" secondItem="QeI-bw-lRC" secondAttribute="topMargin" id="1ny-sM-ofi"/>
+                                                <constraint firstItem="WPH-LX-Izj" firstAttribute="leading" secondItem="SOc-q4-GQX" secondAttribute="trailing" constant="8" id="540-92-rcM"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Reh-bg-Dae" secondAttribute="trailing" id="96H-SS-87C"/>
+                                                <constraint firstItem="te5-J9-Qwf" firstAttribute="top" secondItem="Reh-bg-Dae" secondAttribute="bottom" id="Bsz-R2-0sh"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="SOc-q4-GQX" secondAttribute="bottom" id="JXx-fh-HzE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="WPH-LX-Izj" secondAttribute="trailing" id="WYX-a9-JmU"/>
+                                                <constraint firstItem="SOc-q4-GQX" firstAttribute="top" secondItem="QeI-bw-lRC" secondAttribute="topMargin" id="ccd-zb-Eau"/>
+                                                <constraint firstItem="Reh-bg-Dae" firstAttribute="leading" secondItem="SOc-q4-GQX" secondAttribute="trailing" constant="8" id="lkp-C8-wyL"/>
+                                                <constraint firstItem="SOc-q4-GQX" firstAttribute="leading" secondItem="QeI-bw-lRC" secondAttribute="leadingMargin" id="qhR-vi-1Ow"/>
+                                                <constraint firstItem="te5-J9-Qwf" firstAttribute="leading" secondItem="SOc-q4-GQX" secondAttribute="trailing" constant="8" id="tXo-7a-MZM"/>
+                                                <constraint firstItem="WPH-LX-Izj" firstAttribute="top" secondItem="te5-J9-Qwf" secondAttribute="bottom" id="vOV-rc-Dn2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="te5-J9-Qwf" secondAttribute="trailing" id="yDC-u4-0e6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="authors" destination="te5-J9-Qwf" id="ZmO-kg-hBa"/>
+                                            <outlet property="bookThumbnail" destination="SOc-q4-GQX" id="tpC-hE-GwN"/>
+                                            <outlet property="publisher" destination="WPH-LX-Izj" id="43h-o7-AmU"/>
+                                            <outlet property="title" destination="Reh-bg-Dae" id="W6u-jK-1AV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="c7A-S2-OM6"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Z69-tB-a2W"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="AK1-MH-Q4x" secondAttribute="trailing" id="Al0-Yr-h45"/>
-                            <constraint firstItem="AK1-MH-Q4x" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="jJM-tV-X1t"/>
-                            <constraint firstItem="AK1-MH-Q4x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rxB-iA-A5W"/>
+                            <constraint firstItem="PVw-jW-B5E" firstAttribute="top" secondItem="AK1-MH-Q4x" secondAttribute="bottom" id="dBl-GT-a4W"/>
+                            <constraint firstAttribute="trailing" secondItem="AK1-MH-Q4x" secondAttribute="trailing" id="mZJ-qs-TPC"/>
+                            <constraint firstItem="AK1-MH-Q4x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nvI-pY-0Vh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PVw-jW-B5E" secondAttribute="bottom" id="qVx-Pi-IEk"/>
+                            <constraint firstItem="PVw-jW-B5E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="s3H-jr-PFH"/>
+                            <constraint firstAttribute="trailing" secondItem="PVw-jW-B5E" secondAttribute="trailing" id="xfZ-9f-wLY"/>
+                            <constraint firstItem="AK1-MH-Q4x" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="y9i-uQ-11M"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Book Search" id="SCE-YH-hct"/>
                     <connections>
                         <outlet property="googleBooksSearchBar" destination="AK1-MH-Q4x" id="KkE-4a-M5X"/>
+                        <outlet property="searchResultTableView" destination="PVw-jW-B5E" id="9pA-S2-DCb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
