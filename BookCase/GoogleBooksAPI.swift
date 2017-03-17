@@ -57,6 +57,22 @@ class GoogleBooksAPI {
         
     }
     
+    // Get the image data for a specified URL
+    func getBookImage(for url: String, completionHandler: @escaping (_ imageData: Data?) -> Void) {
+        
+        guard let imageURL = URL(string: url) else {
+            completionHandler(nil)
+            return
+        }
+        
+        session.dataTask(with: imageURL) {data, _, _ in
+            
+            completionHandler(data)
+            
+        }.resume()
+        
+    }
+    
     
     // Create Google Books Search URL from Parameters
     private func googleBooksURLFromParameters(_ parameters: [String:String]) -> URL {
