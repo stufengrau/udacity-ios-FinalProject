@@ -38,9 +38,20 @@ struct BookData {
         }
         
         self.title = title
-        self.googleBookURL = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String
+        
+        if let bookURL = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
+            self.googleBookURL = rewriteLinkToHttps(url: bookURL)
+        } else {
+           self.googleBookURL = nil
+        }
+        
+        if let imageLinks = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.ImageLinks] as? [String:AnyObject], let imageURL =  imageLinks[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String {
+            self.coverURL = rewriteLinkToHttps(url: imageURL)
+        } else {
+            self.coverURL = nil
+        }
+        
         self.subtitle = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitel] as? String
-        self.coverURL = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String
         self.publisher = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         self.pages = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         self.publishedDate = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? Date
