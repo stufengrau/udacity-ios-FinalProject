@@ -31,7 +31,6 @@ extension GoogleBooksAPI {
     
     // MARK: Google Books Response Keys
     struct GoogleBooksResponseKeys {
-        static let TotalItems = "totalItems"
         static let Items = "items"
         static let VolumeInfo = "volumeInfo"
         static let Title = "title"
@@ -42,6 +41,7 @@ extension GoogleBooksAPI {
         static let BookPages = "pageCount"
         static let SmallThumbnailURL = "smallThumbnail"
         static let PreviewURL = "previewLink"
+        static let ImageLinks = "imageLinks"
     }
     
     // MARK: Google Books Response Values
