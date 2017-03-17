@@ -43,19 +43,13 @@ class GoogleBooksAPI {
                 return
             }
             
-            // was anything found by the search term?
-            guard let totalItems = parsedResult[GoogleBooksAPI.GoogleBooksResponseKeys.TotalItems] as? Int, totalItems > 0 else {
+            // Was anything found by the search term?
+            guard let searchResult = parsedResult[GoogleBooksAPI.GoogleBooksResponseKeys.Items] as? [[String:AnyObject]] else {
                 completionHandler(.nothingFound)
                 return
             }
             
-            // does the data contain a key "items"?
-            guard let items = parsedResult[GoogleBooksAPI.GoogleBooksResponseKeys.Items] as? [[String:AnyObject]] else {
-                completionHandler(.failure)
-                return
-            }
-            
-            Book.shared.bookData = createListOfBooks(items)
+            Book.shared.bookData = createListOfBooks(searchResult)
             
             completionHandler(.success)
             
