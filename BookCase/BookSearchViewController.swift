@@ -61,23 +61,11 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "BookOverviewCell"
         
+        let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        if let coverURL = BookLibrary.shared.books[indexPath.row].coverURL {
-            GoogleBooksAPI.shared.getBookImage(for: coverURL) { (data) in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        cell.bookThumbnail.image = UIImage(data: data)
-                    }
-                }
-            }
-        }
-
-        cell.title.text = BookLibrary.shared.books[indexPath.row].title
-        cell.publisher.text = BookLibrary.shared.books[indexPath.row].publisher
-        cell.authors.text = BookLibrary.shared.books[indexPath.row].authors.joined(separator: ", ")
+        cell.confiureCell(book: BookLibrary.shared.books[indexPath.row])
         
         return cell
     }

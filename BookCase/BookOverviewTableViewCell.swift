@@ -14,5 +14,22 @@ class BookOverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var authors: UILabel!
     @IBOutlet weak var publisher: UILabel!
+    
+    func confiureCell(book: Book) {
+        
+        if let coverURL = book.coverURL {
+            GoogleBooksAPI.shared.getBookImage(for: coverURL) { (data) in
+                if let data = data {
+                    DispatchQueue.main.async {
+                        self.bookThumbnail.image = UIImage(data: data)
+                    }
+                }
+            }
+        }
+        
+        title.text = book.title
+        publisher.text = book.publisher
+        authors.text = book.authors.joined(separator: ", ")
+    }
 
 }
