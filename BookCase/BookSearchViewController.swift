@@ -12,17 +12,21 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
 
     @IBOutlet weak var googleBooksSearchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
+    @IBOutlet weak var searchActivityIndicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         googleBooksSearchBar.delegate = self
+        searchResultTableView.isHidden = true
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         // dismiss keyboard
         googleBooksSearchBar.endEditing(true)
+        searchResultTableView.isHidden = true
+        searchActivityIndicatorView.startAnimating()
         
         guard let searchTerm = googleBooksSearchBar.text else {
             assertionFailure("searchTerm should not be empty")
@@ -32,11 +36,15 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         let concatenatedSearchTerm = searchTerm.replacingOccurrences(of: " ", with: "+")
             
         GoogleBooksAPI.shared.searchGoogleBooks(concatenatedSearchTerm) { (result) in
+            DispatchQueue.main.async {
+                self.searchActivityIndicatorView.stopAnimating()
+            }
             switch result {
             case .success:
                 debugPrint("Google Books Search was successful:")
                 dump(BookLibrary.shared.books)
                 DispatchQueue.main.async {
+                    self.searchResultTableView.isHidden = false
                     self.searchResultTableView.reloadData()
                 }
             case .nothingFound:

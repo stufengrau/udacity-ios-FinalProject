@@ -31,6 +31,18 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJT-LP-g7f">
+                                <rect key="frame" x="0.0" y="139" width="375" height="528"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qWk-Dz-3qf">
+                                        <rect key="frame" x="177" y="254" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="qWk-Dz-3qf" firstAttribute="centerY" secondItem="IJT-LP-g7f" secondAttribute="centerY" id="DGl-tT-JEG"/>
+                                    <constraint firstItem="qWk-Dz-3qf" firstAttribute="centerX" secondItem="IJT-LP-g7f" secondAttribute="centerX" id="I6c-30-cpE"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="89" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PVw-jW-B5E">
                                 <rect key="frame" x="0.0" y="139" width="375" height="528"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -98,11 +110,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="IJT-LP-g7f" firstAttribute="top" secondItem="AK1-MH-Q4x" secondAttribute="bottom" id="BZR-b6-sIQ"/>
                             <constraint firstItem="PVw-jW-B5E" firstAttribute="top" secondItem="AK1-MH-Q4x" secondAttribute="bottom" id="dBl-GT-a4W"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IJT-LP-g7f" secondAttribute="bottom" id="eIi-xa-knX"/>
+                            <constraint firstAttribute="trailing" secondItem="IJT-LP-g7f" secondAttribute="trailing" id="ehg-eP-5OD"/>
                             <constraint firstAttribute="trailing" secondItem="AK1-MH-Q4x" secondAttribute="trailing" id="mZJ-qs-TPC"/>
                             <constraint firstItem="AK1-MH-Q4x" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="nvI-pY-0Vh"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PVw-jW-B5E" secondAttribute="bottom" id="qVx-Pi-IEk"/>
                             <constraint firstItem="PVw-jW-B5E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="s3H-jr-PFH"/>
+                            <constraint firstItem="IJT-LP-g7f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vQe-Lp-Fp2"/>
                             <constraint firstAttribute="trailing" secondItem="PVw-jW-B5E" secondAttribute="trailing" id="xfZ-9f-wLY"/>
                             <constraint firstItem="AK1-MH-Q4x" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="y9i-uQ-11M"/>
                         </constraints>
@@ -110,6 +126,7 @@
                     <navigationItem key="navigationItem" title="Book Search" id="SCE-YH-hct"/>
                     <connections>
                         <outlet property="googleBooksSearchBar" destination="AK1-MH-Q4x" id="KkE-4a-M5X"/>
+                        <outlet property="searchActivityIndicatorView" destination="qWk-Dz-3qf" id="o2u-Nl-JeJ"/>
                         <outlet property="searchResultTableView" destination="PVw-jW-B5E" id="9pA-S2-DCb"/>
                     </connections>
                 </viewController>
