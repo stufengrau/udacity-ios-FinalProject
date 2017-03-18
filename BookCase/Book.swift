@@ -8,17 +8,17 @@
 
 import Foundation
 
-class Book {
+class BookLibrary {
     
-    var bookData = [BookData]()
+    var books = [Book]()
     
-    static let shared = Book()
+    static let shared = BookLibrary()
     private init() {}
     
 }
 
 // Structure for Book Data
-struct BookData {
+struct Book {
     let coverURL: String?
     let title: String
     let subtitle: String?
@@ -61,10 +61,10 @@ struct BookData {
 }
 
 // create an array of books
-func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [BookData] {
+func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
     
     
-    var result = [BookData]()
+    var listOfBooks = [Book]()
     
     for item in bookSearchResult {
         guard let bookInfo = item[GoogleBooksAPI.GoogleBooksResponseKeys.VolumeInfo] as? [String:AnyObject] else {
@@ -72,13 +72,12 @@ func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [BookData] {
             return []
         }
         
-        if let bookData = BookData(bookInfo) {
-            result.append(bookData)
+        if let book = Book(bookInfo) {
+            listOfBooks.append(book)
         }
     }
     
-    return result
-    
+    return listOfBooks
 }
 
 func rewriteLinkToHttps(url: String) -> String {

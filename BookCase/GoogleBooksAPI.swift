@@ -49,7 +49,7 @@ class GoogleBooksAPI {
                 return
             }
             
-            Book.shared.bookData = createListOfBooks(searchResult)
+            BookLibrary.shared.books = createListOfBooks(searchResult)
             
             completionHandler(.success)
             

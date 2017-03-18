@@ -35,7 +35,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
             switch result {
             case .success:
                 debugPrint("Google Books Search was successful:")
-                dump(Book.shared.bookData)
+                dump(BookLibrary.shared.books)
                 DispatchQueue.main.async {
                     self.searchResultTableView.reloadData()
                 }
@@ -57,7 +57,7 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Book.shared.bookData.count
+        return BookLibrary.shared.books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,7 +65,7 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        if let coverURL = Book.shared.bookData[indexPath.row].coverURL {
+        if let coverURL = BookLibrary.shared.books[indexPath.row].coverURL {
             GoogleBooksAPI.shared.getBookImage(for: coverURL) { (data) in
                 if let data = data {
                     DispatchQueue.main.async {
@@ -75,9 +75,9 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
 
-        cell.title.text = Book.shared.bookData[indexPath.row].title
-        cell.publisher.text = Book.shared.bookData[indexPath.row].publisher
-        cell.authors.text = Book.shared.bookData[indexPath.row].authors.joined(separator: ", ")
+        cell.title.text = BookLibrary.shared.books[indexPath.row].title
+        cell.publisher.text = BookLibrary.shared.books[indexPath.row].publisher
+        cell.authors.text = BookLibrary.shared.books[indexPath.row].authors.joined(separator: ", ")
         
         return cell
     }
