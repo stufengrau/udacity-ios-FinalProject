@@ -34,7 +34,7 @@ extension GoogleBooksAPI {
         static let Items = "items"
         static let VolumeInfo = "volumeInfo"
         static let Title = "title"
-        static let Subtitel = "subtitel"
+        static let Subtitle = "subtitle"
         static let Authors = "authors"
         static let Publisher = "publisher"
         static let PublisedDate = "publishedDate"

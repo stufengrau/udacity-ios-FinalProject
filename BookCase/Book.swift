@@ -51,7 +51,7 @@ struct Book {
             self.coverURL = nil
         }
         
-        self.subtitle = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitel] as? String
+        self.subtitle = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
         self.publisher = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         self.pages = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         self.publishedDate = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? Date
