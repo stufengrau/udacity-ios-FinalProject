@@ -39,6 +39,7 @@ class BookDetailTableViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             let bookDetailCoverCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCoverCell", for: indexPath) as! BookDetailCoverTableViewCell
+            bookDetailCoverCell.configureCell(book: book)
             cell = bookDetailCoverCell
         case 1:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
