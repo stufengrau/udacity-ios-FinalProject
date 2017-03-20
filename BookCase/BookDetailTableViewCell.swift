@@ -41,7 +41,16 @@ class BookDetailTableViewCell: UITableViewCell {
     }
     
     func configureCell(headline: String, date: Date?) {
-        configureCell(headline: headline, content: date?.description)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        
+        if let date = date {
+            configureCell(headline: headline, content: dateFormatter.string(from: date))
+        } else {
+            configureCell(headline: headline, content: nil)
+        }
+
     }
 
 }
