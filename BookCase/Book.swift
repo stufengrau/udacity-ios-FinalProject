@@ -54,7 +54,15 @@ struct Book {
         self.subtitle = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
         self.publisher = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         self.pages = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
-        self.publishedDate = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? Date
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let isoDate = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String {
+            self.publishedDate = dateFormatter.date(from: isoDate)
+        } else {
+            self.publishedDate = nil
+        }
+
         self.authors = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
 
     }
