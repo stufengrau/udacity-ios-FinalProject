@@ -57,9 +57,9 @@ class BookDetailTableViewController: UITableViewController {
             bookDetailCell.configureCell(headline: "Published Date", date: book.publishedDate)
             cell = bookDetailCell
         default:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.backgroundColor = UIColor.blue
-            cell = bookDetailCell
+            let bookDetailPreviewCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailPreviewCell", for: indexPath) as! BookDetailPreviewTableViewCell
+            bookDetailPreviewCell.configureCell(googlePreviewURL: book.googleBookURL)
+            cell = bookDetailPreviewCell
             
         }
 

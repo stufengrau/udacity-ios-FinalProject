@@ -152,22 +152,22 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookDetailCell" rowHeight="95" id="jpA-Uo-rQn" customClass="BookDetailTableViewCell" customModule="BookCase" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="95"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookDetailCell" rowHeight="71" id="jpA-Uo-rQn" customClass="BookDetailTableViewCell" customModule="BookCase" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jpA-Uo-rQn" id="NGH-t7-t7V">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="94.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gx7-vh-ISY">
-                                            <rect key="frame" x="8" y="12" width="359" height="19.5"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <rect key="frame" x="16" y="12" width="351" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccb-tV-Vkm">
-                                            <rect key="frame" x="8" y="35.5" width="359" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccb-tV-Vkm">
+                                            <rect key="frame" x="16" y="33" width="351" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -177,14 +177,40 @@
                                         <constraint firstItem="ccb-tV-Vkm" firstAttribute="top" secondItem="gx7-vh-ISY" secondAttribute="bottom" constant="4" id="EZ3-mM-08a"/>
                                         <constraint firstItem="gx7-vh-ISY" firstAttribute="trailing" secondItem="NGH-t7-t7V" secondAttribute="trailingMargin" id="FeY-96-LSm"/>
                                         <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="ccb-tV-Vkm" secondAttribute="bottom" constant="4" id="GsW-Hu-w4T"/>
-                                        <constraint firstItem="gx7-vh-ISY" firstAttribute="leading" secondItem="NGH-t7-t7V" secondAttribute="leadingMargin" id="JoF-Tm-dew"/>
+                                        <constraint firstItem="gx7-vh-ISY" firstAttribute="leading" secondItem="NGH-t7-t7V" secondAttribute="leadingMargin" constant="8" id="JoF-Tm-dew"/>
                                         <constraint firstItem="gx7-vh-ISY" firstAttribute="top" secondItem="NGH-t7-t7V" secondAttribute="topMargin" constant="4" id="OjS-I7-egf"/>
-                                        <constraint firstItem="ccb-tV-Vkm" firstAttribute="leading" secondItem="NGH-t7-t7V" secondAttribute="leadingMargin" id="wX1-5P-bHp"/>
+                                        <constraint firstItem="ccb-tV-Vkm" firstAttribute="leading" secondItem="NGH-t7-t7V" secondAttribute="leadingMargin" constant="8" id="wX1-5P-bHp"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="contentLabel" destination="ccb-tV-Vkm" id="enr-Uk-i0s"/>
                                     <outlet property="headlineLabel" destination="gx7-vh-ISY" id="nE6-kT-vKc"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookDetailPreviewCell" id="mDR-Lu-heU" customClass="BookDetailPreviewTableViewCell" customModule="BookCase" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="143" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mDR-Lu-heU" id="D6E-9T-MLJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTk-mm-bMa">
+                                            <rect key="frame" x="16" y="12" width="351" height="19.5"/>
+                                            <state key="normal" title="Online Preview on Google Books"/>
+                                            <connections>
+                                                <action selector="previewBookTapped:" destination="mDR-Lu-heU" eventType="touchUpInside" id="lf6-Lc-jlF"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="OTk-mm-bMa" firstAttribute="leading" secondItem="D6E-9T-MLJ" secondAttribute="leadingMargin" constant="8" id="Cvf-Yc-2ZZ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="OTk-mm-bMa" secondAttribute="trailing" id="GMY-3H-sSD"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="OTk-mm-bMa" secondAttribute="bottom" constant="4" id="d9P-3T-Mun"/>
+                                        <constraint firstItem="OTk-mm-bMa" firstAttribute="top" secondItem="D6E-9T-MLJ" secondAttribute="topMargin" constant="4" id="dib-se-qQy"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="previewBookButton" destination="OTk-mm-bMa" id="85x-5z-WgH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
