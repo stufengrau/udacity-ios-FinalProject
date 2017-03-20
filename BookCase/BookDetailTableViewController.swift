@@ -63,12 +63,18 @@ class BookDetailTableViewController: UITableViewController {
             cell = bookDetailPreviewCell
             
         }
-
+        
+        cell.selectionStyle = .none
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
+    
  
 }
