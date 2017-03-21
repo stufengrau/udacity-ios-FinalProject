@@ -58,7 +58,7 @@ struct BookInformation {
     let subtitle: String?
     let authors: [String]
     let publisher: String?
-    let publishedDate: Date?
+    let publishedDate: PublicationDate?
     let pages: Int?
     let googleBookURL: String?
     
@@ -89,13 +89,7 @@ struct BookInformation {
         self.publisher = book[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         self.pages = book[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let isoDate = book[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String {
-            self.publishedDate = dateFormatter.date(from: isoDate)
-        } else {
-            self.publishedDate = nil
-        }
+        self.publishedDate = PublicationDate(isoDate: book[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
 
         self.authors = book[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
 
