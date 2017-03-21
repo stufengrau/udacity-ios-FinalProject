@@ -28,18 +28,16 @@ class BookDetailCoverTableViewCell: UITableViewCell {
     
     func configureCell(book: Book) {
         
-        if let coverURL = book.coverURL {
-            GoogleBooksAPI.shared.getBookImage(for: coverURL) { (data) in
-                if let data = data {
-                    DispatchQueue.main.async {
-                        self.bookThumbnail.image = UIImage(data: data)
-                    }
+        book.fetchCoverImage { (coverImage) in
+            if let coverImage = coverImage {
+                DispatchQueue.main.async {
+                    self.bookThumbnail.image = coverImage
                 }
             }
         }
         
-        titel.text = book.title
-        subtitel.text = book.subtitle
+        titel.text = book.bookInformation.title
+        subtitel.text = book.bookInformation.subtitle
     }
-
+    
 }

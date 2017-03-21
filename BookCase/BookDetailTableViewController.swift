@@ -43,23 +43,23 @@ class BookDetailTableViewController: UITableViewController {
             cell = bookDetailCoverCell
         case 1:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Authors", content: book.authors.joined(separator: ", "))
+            bookDetailCell.configureCell(headline: "Authors", content: book.bookInformation.authors.joined(separator: ", "))
             cell = bookDetailCell
         case 2:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Publisher", content: book.publisher)
+            bookDetailCell.configureCell(headline: "Publisher", content: book.bookInformation.publisher)
             cell = bookDetailCell
         case 3:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Pages", pages: book.pages)
+            bookDetailCell.configureCell(headline: "Pages", pages: book.bookInformation.pages)
             cell = bookDetailCell
         case 4:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Published Date", date: book.publishedDate)
+            bookDetailCell.configureCell(headline: "Published Date", date: book.bookInformation.publishedDate)
             cell = bookDetailCell
         default:
             let bookDetailPreviewCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailPreviewCell", for: indexPath) as! BookDetailPreviewTableViewCell
-            bookDetailPreviewCell.configureCell(googlePreviewURL: book.googleBookURL)
+            bookDetailPreviewCell.configureCell(googlePreviewURL: book.bookInformation.googleBookURL)
             cell = bookDetailPreviewCell
             
         }

@@ -6,7 +6,41 @@
 //  Copyright © 2017 stufengrau. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol Book {
+    var bookInformation: BookInformation { get }
+    func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void)
+}
+
+class BookImageCaching: Book {
+    let bookInformation: BookInformation
+    private var coverImage: UIImage?
+    
+    func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
+        if let coverImage = self.coverImage {
+            completion(coverImage)
+        } else {
+            if let coverImageURL = bookInformation.coverURL {
+                GoogleBooksAPI.shared.getBookImage(for: coverImageURL, completionHandler: { (data) in
+                    guard let imageData = data else {
+                        completion(nil)
+                        return
+                    }
+                    self.coverImage = UIImage(data: imageData)
+                    completion(self.coverImage)
+                })
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
+    init(bookInformation: BookInformation) {
+        self.bookInformation = bookInformation
+        self.coverImage = nil
+    }
+}
 
 class BookLibrary {
     
@@ -17,8 +51,8 @@ class BookLibrary {
     
 }
 
-// Structure for Book Data
-struct Book {
+// Structure for Book Information
+struct BookInformation {
     let coverURL: String?
     let title: String
     let subtitle: String?
@@ -30,40 +64,40 @@ struct Book {
     
     
     // initializer is failable
-    init?(_ bookInformation: [String:AnyObject]) {
+    init?(_ book: [String:AnyObject]) {
         
         // make sure, all necessary keys have a value
-        guard let title = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Title] as? String else {
+        guard let title = book[GoogleBooksAPI.GoogleBooksResponseKeys.Title] as? String else {
             return nil
         }
         
         self.title = title
         
-        if let bookURL = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
+        if let bookURL = book[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
             self.googleBookURL = rewriteLinkToHttps(url: bookURL)
         } else {
            self.googleBookURL = nil
         }
         
-        if let imageLinks = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.ImageLinks] as? [String:AnyObject], let imageURL =  imageLinks[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String {
+        if let imageLinks = book[GoogleBooksAPI.GoogleBooksResponseKeys.ImageLinks] as? [String:AnyObject], let imageURL =  imageLinks[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String {
             self.coverURL = rewriteLinkToHttps(url: imageURL)
         } else {
             self.coverURL = nil
         }
         
-        self.subtitle = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
-        self.publisher = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
-        self.pages = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
+        self.subtitle = book[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
+        self.publisher = book[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
+        self.pages = book[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        if let isoDate = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String {
+        if let isoDate = book[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String {
             self.publishedDate = dateFormatter.date(from: isoDate)
         } else {
             self.publishedDate = nil
         }
 
-        self.authors = bookInformation[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+        self.authors = book[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
 
     }
 }
@@ -80,8 +114,8 @@ func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
             return []
         }
         
-        if let book = Book(bookInfo) {
-            listOfBooks.append(book)
+        if let bookInformation = BookInformation(bookInfo) {
+            listOfBooks.append(BookImageCaching(bookInformation: bookInformation))
         }
     }
     
