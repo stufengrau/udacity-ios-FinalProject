@@ -11,8 +11,8 @@ import UIKit
 class BookDetailCoverTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bookThumbnail: UIImageView!
-    @IBOutlet weak var titel: UILabel!
-    @IBOutlet weak var subtitel: UILabel!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var subtitle: UILabel!
     
     
     override func awakeFromNib() {
@@ -36,8 +36,8 @@ class BookDetailCoverTableViewCell: UITableViewCell {
             }
         }
         
-        titel.text = book.bookInformation.title
-        subtitel.text = book.bookInformation.subtitle
+        title.text = book.bookInformation.title
+        subtitle.text = book.bookInformation.subtitle
     }
     
 }
