@@ -25,15 +25,8 @@ class BookDetailTableViewCell: UITableViewCell {
     }
     
     func configureCell(headline: String, content: String?) {
-        
         headlineLabel.text = headline
-        
-        if content == nil {
-            contentLabel.text = "No Data"
-        } else {
-            contentLabel.text = content
-        }
-        
+        contentLabel.text = content ?? "No Data"
     }
     
     func configureCell(headline: String, pages: Int?) {
