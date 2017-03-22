@@ -10,11 +10,12 @@ import UIKit
 
 class BookDetailCoverTableViewCell: UITableViewCell {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var bookThumbnail: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     
-    
+    // MARK: -
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,8 +27,10 @@ class BookDetailCoverTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Cell Configuration
     func configureCell(book: Book) {
         
+        // Fetch the cover image
         book.fetchCoverImage { (coverImage) in
             if let coverImage = coverImage {
                 DispatchQueue.main.async {

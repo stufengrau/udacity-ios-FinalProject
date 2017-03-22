@@ -10,17 +10,12 @@ import UIKit
 
 class BookListViewController: UIViewController {
 
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // MARK: - Navigation
@@ -34,9 +29,10 @@ class BookListViewController: UIViewController {
 
 }
 
+// MARK: -
 extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
-    
+    // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -50,6 +46,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
+        // TODO: UIElements not initialized yet so this can't work!!!
         //cell.configureCell(book: BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!))
         
         return cell

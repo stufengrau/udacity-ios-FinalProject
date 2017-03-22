@@ -14,16 +14,17 @@ enum SearchGoogleBooksResult {
     case failure
 }
 
+// MARK: -
 class GoogleBooksAPI {
     
-    // MARK: Properties
+    // MARK: - Properties
     private var session = URLSession.shared
     
-    // Singleton
+    // MARK: - Singleton
     static let shared = GoogleBooksAPI()
     private init() {}
     
-    // MARK: Network Requests
+    // MARK: - Network Requests
     
     // Search Google Books 
     func searchGoogleBooks(_ searchTerm: String, completionHandler: @escaping (SearchGoogleBooksResult) -> Void) {
@@ -38,6 +39,7 @@ class GoogleBooksAPI {
         
         session.dataTask(with: request as URLRequest) { data, response, error in
             
+            // Any errors?
             guard let parsedResult = self.getResult(data: data, response: response, error: error) else {
                 completionHandler(.failure)
                 return
@@ -49,6 +51,7 @@ class GoogleBooksAPI {
                 return
             }
             
+            // Create book list of search results
             BookLibrary.shared.books = createListOfBooks(searchResult)
             
             completionHandler(.success)
@@ -73,6 +76,7 @@ class GoogleBooksAPI {
         
     }
     
+    // MARK: - Helper functions
     
     // Create Google Books Search URL from Parameters
     private func googleBooksURLFromParameters(_ parameters: [String:String]) -> URL {

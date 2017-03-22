@@ -9,26 +9,32 @@
 import UIKit
 
 class BookSearchViewController: UIViewController, UISearchBarDelegate {
-
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var googleBooksSearchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
     @IBOutlet weak var searchActivityIndicatorView: UIActivityIndicatorView!
     
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         googleBooksSearchBar.delegate = self
         searchResultTableView.isHidden = true
     }
 
+    // MARK: - IBActions
     @IBAction func doneSearchingTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Book Search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        // dismiss keyboard
+        // Dismiss keyboard
         googleBooksSearchBar.endEditing(true)
+        
         searchResultTableView.isHidden = true
         searchActivityIndicatorView.startAnimating()
         
@@ -37,6 +43,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
             return
         }
     
+        // Adapt search term for parametrization of the google book search url
         let concatenatedSearchTerm = searchTerm.replacingOccurrences(of: " ", with: "+")
             
         GoogleBooksAPI.shared.searchGoogleBooks(concatenatedSearchTerm) { (result) in
@@ -62,8 +69,10 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
 
 }
 
+// MARK: -
 extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
     
+    // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

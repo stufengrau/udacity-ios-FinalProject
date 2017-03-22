@@ -10,26 +10,26 @@ import Foundation
 
 extension GoogleBooksAPI {
     
-    // MARK: URL Contants
+    // MARK: - URL Contants
     struct GoogleBooksURL {
         static let APIScheme = "https"
         static let APIHost = "www.googleapis.com"
         static let APIPath = "/books/v1/volumes"
     }
     
-    // MARK: Google Books Parameter Keys
+    // MARK: - Google Books Parameter Keys
     struct GoogleBooksParameterKeys {
         static let Query = "q"
         static let APIKey = "key"
         static let Results = "maxResults"
     }
     
-    // MARK: Google Books Parameter Values
+    // MARK: - Google Books Parameter Values
     struct GoogleBooksParameterValues {
         static let maxResults = "10"
     }
     
-    // MARK: Google Books Response Keys
+    // MARK: - Google Books Response Keys
     struct GoogleBooksResponseKeys {
         static let Items = "items"
         static let VolumeInfo = "volumeInfo"
@@ -42,10 +42,6 @@ extension GoogleBooksAPI {
         static let SmallThumbnailURL = "smallThumbnail"
         static let PreviewURL = "previewLink"
         static let ImageLinks = "imageLinks"
-    }
-    
-    // MARK: Google Books Response Values
-    struct GoogleBooksResponseValues {
     }
 
 }

@@ -10,11 +10,17 @@ import UIKit
 
 class BookDetailTableViewController: UITableViewController {
     
+    // MARK: - Propterites
     var book: Book!
+    private let numberOfCells = 6
 
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Self-Sizing Table View Cells:
+        // http://www.appcoda.com/self-sizing-cells/
+        // https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithSelf-SizingTableViewCells.html
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 44.0;
 
@@ -27,7 +33,7 @@ class BookDetailTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return numberOfCells
     }
 
     
@@ -35,7 +41,8 @@ class BookDetailTableViewController: UITableViewController {
         
         let cell: UITableViewCell
 
-        
+        // TODO: Refactor this code!
+        // Configure cell based on cell index
         switch indexPath.row {
         case 0:
             let bookDetailCoverCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCoverCell", for: indexPath) as! BookDetailCoverTableViewCell
@@ -55,7 +62,7 @@ class BookDetailTableViewController: UITableViewController {
             cell = bookDetailCell
         case 4:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Published Date", date: book.bookInformation.publishedDate)
+            bookDetailCell.configureCell(headline: "Publication Date", date: book.bookInformation.publishedDate)
             cell = bookDetailCell
         default:
             let bookDetailPreviewCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailPreviewCell", for: indexPath) as! BookDetailPreviewTableViewCell
@@ -64,15 +71,19 @@ class BookDetailTableViewController: UITableViewController {
             
         }
         
+        // Disable cell selection
         cell.selectionStyle = .none
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Self-sizing table view cell
         return UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        // Disable cell selection
         return nil
     }
     

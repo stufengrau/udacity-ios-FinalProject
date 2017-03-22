@@ -10,10 +10,13 @@ import UIKit
 
 class BookDetailPreviewTableViewCell: UITableViewCell {
 
+    // MARK: Properties
     var previewURL: String?
     
+    // MARK: - IBOutlets
     @IBOutlet weak var previewBookButton: UIButton!
     
+    // MARK: -
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,7 +28,9 @@ class BookDetailPreviewTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Cell Configuration
     func configureCell(googlePreviewURL: String?) {
+        // Disable Preview Button if no preview URL is set
         previewURL = googlePreviewURL
         if (googlePreviewURL != nil) {
             previewBookButton.isEnabled = true
@@ -34,8 +39,9 @@ class BookDetailPreviewTableViewCell: UITableViewCell {
         }
     }
 
+    // MARK: - IBActions
     @IBAction func previewBookTapped(_ sender: UIButton) {
-        // open Google Books preview in Safari
+        // Open Google Books preview in Safari
         UIApplication.shared.open(URL(string: previewURL!)!, options: [:], completionHandler: nil)
     }
 }

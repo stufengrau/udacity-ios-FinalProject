@@ -10,9 +10,11 @@ import UIKit
 
 class BookDetailTableViewCell: UITableViewCell {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var headlineLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
+    // MARK: -
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,6 +26,7 @@ class BookDetailTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // MARK: - Cell Configuration
     func configureCell(headline: String, content: String?) {
         headlineLabel.text = headline
         contentLabel.text = content ?? "No Data"

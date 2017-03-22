@@ -13,10 +13,20 @@ protocol Book {
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void)
 }
 
+// MARK: -
 class BookImageCaching: Book {
+    
+    // MARK: - Properties
     let bookInformation: BookInformation
     private var coverImage: UIImage?
     
+    // MARK: - Initializer
+    init(bookInformation: BookInformation) {
+        self.bookInformation = bookInformation
+        self.coverImage = nil
+    }
+    
+    // MARK: - Fetch cover image
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
         if let coverImage = self.coverImage {
             completion(coverImage)
@@ -36,23 +46,25 @@ class BookImageCaching: Book {
         }
     }
     
-    init(bookInformation: BookInformation) {
-        self.bookInformation = bookInformation
-        self.coverImage = nil
-    }
 }
 
+// MARK: -
 class BookLibrary {
     
+    // MARK: - Properties
     var books = [Book]()
     
+    // MARK: - Singelton
     static let shared = BookLibrary()
     private init() {}
     
 }
 
+// MARK: -
 // Structure for Book Information
 struct BookInformation {
+    
+    // MARK: - Properties
     let coverURL: String?
     let title: String
     let subtitle: String?
@@ -62,23 +74,24 @@ struct BookInformation {
     let pages: Int?
     let googleBookURL: String?
     
-    
-    // initializer is failable
+    // MARK: - Initializer
     init?(_ book: [String:AnyObject]) {
         
-        // make sure, all necessary keys have a value
+        // Make sure, all necessary keys have a value
         guard let title = book[GoogleBooksAPI.GoogleBooksResponseKeys.Title] as? String else {
             return nil
         }
         
         self.title = title
         
+        // TODO: Refactor?
         if let bookURL = book[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
             self.googleBookURL = rewriteLinkToHttps(url: bookURL)
         } else {
            self.googleBookURL = nil
         }
         
+        // TODO: Refactor?
         if let imageLinks = book[GoogleBooksAPI.GoogleBooksResponseKeys.ImageLinks] as? [String:AnyObject], let imageURL =  imageLinks[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String {
             self.coverURL = rewriteLinkToHttps(url: imageURL)
         } else {
@@ -96,18 +109,20 @@ struct BookInformation {
     }
 }
 
-// create an array of books
+// MARK: -
+// Create an array of books
 func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
     
     
     var listOfBooks = [Book]()
     
     for item in bookSearchResult {
+        // Is there any volume info?
         guard let bookInfo = item[GoogleBooksAPI.GoogleBooksResponseKeys.VolumeInfo] as? [String:AnyObject] else {
-            debugPrint("No Volume Info key found")
             return []
         }
         
+        // Add the book to the list, if the book information could be created
         if let bookInformation = BookInformation(bookInfo) {
             listOfBooks.append(BookImageCaching(bookInformation: bookInformation))
         }
@@ -116,10 +131,9 @@ func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
     return listOfBooks
 }
 
+// Make sure URLs start with https
 func rewriteLinkToHttps(url: String) -> String {
-
         return url.replacingOccurrences(of: "http://", with: "https://")
-
 }
 
 
