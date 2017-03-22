@@ -37,7 +37,7 @@ struct PublicationDate: CustomStringConvertible {
         case YearMonthDay = "yyyy-MM-dd"
         static let allValues = [Year, YearMonth, YearMonthDay]
     }
-
+    
     // MARK: - Initializer
     init?(isoDate: String?) {
         

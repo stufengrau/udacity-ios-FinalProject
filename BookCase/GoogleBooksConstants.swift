@@ -43,5 +43,5 @@ extension GoogleBooksAPI {
         static let PreviewURL = "previewLink"
         static let ImageLinks = "imageLinks"
     }
-
+    
 }

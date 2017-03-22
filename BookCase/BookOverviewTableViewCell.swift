@@ -9,7 +9,7 @@
 import UIKit
 
 class BookOverviewTableViewCell: UITableViewCell {
-
+    
     // MARK: - IBOutlets
     @IBOutlet weak var bookThumbnail: UIImageView!
     @IBOutlet weak var title: UILabel!
@@ -44,5 +44,5 @@ class BookOverviewTableViewCell: UITableViewCell {
         publisher.text = book.bookInformation.publisher
         authors.text = book.bookInformation.authors.joined(separator: ", ")
     }
-
+    
 }

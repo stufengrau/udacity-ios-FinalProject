@@ -26,7 +26,7 @@ class GoogleBooksAPI {
     
     // MARK: - Network Requests
     
-    // Search Google Books 
+    // Search Google Books
     func searchGoogleBooks(_ searchTerm: String, completionHandler: @escaping (SearchGoogleBooksResult) -> Void) {
         
         let methodParameters = [
@@ -72,7 +72,7 @@ class GoogleBooksAPI {
             
             completionHandler(data)
             
-        }.resume()
+            }.resume()
         
     }
     

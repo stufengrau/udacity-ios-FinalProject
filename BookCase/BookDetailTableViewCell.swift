@@ -9,7 +9,7 @@
 import UIKit
 
 class BookDetailTableViewCell: UITableViewCell {
-
+    
     // MARK: - IBOutlets
     @IBOutlet weak var headlineLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
@@ -19,10 +19,10 @@ class BookDetailTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -39,5 +39,5 @@ class BookDetailTableViewCell: UITableViewCell {
     func configureCell(headline: String, date: PublicationDate?) {
         configureCell(headline: headline, content: date?.description)
     }
-
+    
 }

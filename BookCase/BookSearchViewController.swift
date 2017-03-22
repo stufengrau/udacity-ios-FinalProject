@@ -23,7 +23,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         googleBooksSearchBar.delegate = self
         searchResultTableView.isHidden = true
     }
-
+    
     // MARK: - IBActions
     @IBAction func doneSearchingTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -42,10 +42,10 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
             assertionFailure("searchTerm should not be empty")
             return
         }
-    
+        
         // Adapt search term for parametrization of the google book search url
         let concatenatedSearchTerm = searchTerm.replacingOccurrences(of: " ", with: "+")
-            
+        
         GoogleBooksAPI.shared.searchGoogleBooks(concatenatedSearchTerm) { (result) in
             DispatchQueue.main.async {
                 self.searchActivityIndicatorView.stopAnimating()
@@ -66,7 +66,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         }
         
     }
-
+    
 }
 
 // MARK: -

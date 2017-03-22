@@ -9,7 +9,7 @@
 import UIKit
 
 class BookDetailPreviewTableViewCell: UITableViewCell {
-
+    
     // MARK: Properties
     var previewURL: String?
     
@@ -21,10 +21,10 @@ class BookDetailPreviewTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -38,7 +38,7 @@ class BookDetailPreviewTableViewCell: UITableViewCell {
             previewBookButton.isEnabled = false
         }
     }
-
+    
     // MARK: - IBActions
     @IBAction func previewBookTapped(_ sender: UIButton) {
         // Open Google Books preview in Safari

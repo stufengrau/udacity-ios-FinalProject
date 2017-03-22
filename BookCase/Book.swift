@@ -88,7 +88,7 @@ struct BookInformation {
         if let bookURL = book[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
             self.googleBookURL = rewriteLinkToHttps(url: bookURL)
         } else {
-           self.googleBookURL = nil
+            self.googleBookURL = nil
         }
         
         // TODO: Refactor?
@@ -103,9 +103,9 @@ struct BookInformation {
         self.pages = book[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         
         self.publishedDate = PublicationDate(isoDate: book[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
-
+        
         self.authors = book[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
-
+        
     }
 }
 
@@ -133,7 +133,7 @@ func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
 
 // Make sure URLs start with https
 func rewriteLinkToHttps(url: String) -> String {
-        return url.replacingOccurrences(of: "http://", with: "https://")
+    return url.replacingOccurrences(of: "http://", with: "https://")
 }
 
 

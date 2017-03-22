@@ -13,7 +13,7 @@ class BookDetailTableViewController: UITableViewController {
     // MARK: - Propterites
     var book: Book!
     private let numberOfCells = 6
-
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,24 +23,24 @@ class BookDetailTableViewController: UITableViewController {
         // https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithSelf-SizingTableViewCells.html
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 44.0;
-
+        
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return numberOfCells
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: UITableViewCell
-
+        
         // TODO: Refactor this code!
         // Configure cell based on cell index
         switch indexPath.row {
@@ -87,5 +87,5 @@ class BookDetailTableViewController: UITableViewController {
         return nil
     }
     
- 
+    
 }
