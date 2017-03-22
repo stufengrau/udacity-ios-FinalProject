@@ -20,6 +20,10 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         googleBooksSearchBar.delegate = self
         searchResultTableView.isHidden = true
     }
+
+    @IBAction func doneSearchingTapped(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
