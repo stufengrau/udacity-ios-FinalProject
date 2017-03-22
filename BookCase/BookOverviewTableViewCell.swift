@@ -15,7 +15,7 @@ class BookOverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var authors: UILabel!
     @IBOutlet weak var publisher: UILabel!
     
-    func confiureCell(book: Book) {
+    func configureCell(book: Book) {
         
         book.fetchCoverImage { (coverImage) in
             if let coverImage = coverImage {

@@ -50,7 +50,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        //cell.confiureCell(book: BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!))
+        //cell.configureCell(book: BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!))
         
         return cell
     }

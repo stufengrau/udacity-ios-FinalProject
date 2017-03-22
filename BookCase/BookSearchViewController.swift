@@ -77,7 +77,7 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
         let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        cell.confiureCell(book: BookLibrary.shared.books[indexPath.row])
+        cell.configureCell(book: BookLibrary.shared.books[indexPath.row])
         
         return cell
     }
