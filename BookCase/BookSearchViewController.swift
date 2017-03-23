@@ -62,6 +62,8 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
                 DispatchQueue.main.async {
                     self.searchResultTableView.isHidden = false
                     self.searchResultTableView.reloadData()
+                    // After new search scroll to first row of table view
+                    self.searchResultTableView.scrollToRow(at: [0,0], at: UITableViewScrollPosition.top, animated: false)
                 }
             case .nothingFound:
                 debugPrint("Nothing found for: \(searchTerm)")
