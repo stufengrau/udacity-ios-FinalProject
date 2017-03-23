@@ -21,8 +21,8 @@ class BookDetailTableViewController: UITableViewController {
         // Self-Sizing Table View Cells:
         // http://www.appcoda.com/self-sizing-cells/
         // https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithSelf-SizingTableViewCells.html
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.estimatedRowHeight = 44.0;
+        tableView.rowHeight = UITableViewAutomaticDimension;
+        tableView.estimatedRowHeight = 44.0;
         
     }
     
@@ -50,7 +50,13 @@ class BookDetailTableViewController: UITableViewController {
             cell = bookDetailCoverCell
         case 1:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Authors", content: book.bookInformation.authors.joined(separator: ", "))
+            if book.bookInformation.authors.count == 0 {
+                bookDetailCell.configureCell(headline: "Author", content: nil)
+            } else if book.bookInformation.authors.count == 1 {
+                bookDetailCell.configureCell(headline: "Author", content: book.bookInformation.authors[0])
+            } else {
+                bookDetailCell.configureCell(headline: "Authors", content: book.bookInformation.authors.joined(separator: ", "))
+            }
             cell = bookDetailCell
         case 2:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
