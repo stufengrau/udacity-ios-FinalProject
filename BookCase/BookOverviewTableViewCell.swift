@@ -31,6 +31,9 @@ class BookOverviewTableViewCell: UITableViewCell {
     // MARK: - Cell Configuration
     func configureCell(book: Book) {
         
+        // Reset book Cover image
+        bookThumbnail.image = nil
+        
         // Fetch the cover image
         book.fetchCoverImage { (coverImage) in
             if let coverImage = coverImage {
