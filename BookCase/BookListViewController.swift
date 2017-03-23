@@ -18,6 +18,7 @@ class BookListViewController: UIViewController {
         
         tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
         
+        // Self-Sizing Table View Cells
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
         
@@ -61,10 +62,6 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
         detailVC.book = BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!)
         self.navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
     }
     
 }

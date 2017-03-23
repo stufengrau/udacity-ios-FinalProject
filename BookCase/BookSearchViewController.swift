@@ -25,6 +25,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         googleBooksSearchBar.delegate = self
         searchResultTableView.isHidden = true
         
+        // Self-Sizing Table View Cells
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
     }
@@ -102,11 +103,6 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
         detailVC.book = BookLibrary.shared.books[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Self-sizing table view cell
-        return UITableViewAutomaticDimension
     }
     
 }
