@@ -26,7 +26,7 @@ extension GoogleBooksAPI {
     
     // MARK: - Google Books Parameter Values
     struct GoogleBooksParameterValues {
-        static let maxResults = "10"
+        static let maxResults = "40"
     }
     
     // MARK: - Google Books Response Keys
