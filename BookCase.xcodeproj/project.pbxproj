@@ -19,9 +19,10 @@
 		E24B10C11E79776B008FF55B /* GoogleBooksConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10BF1E79776B008FF55B /* GoogleBooksConstants.swift */; };
 		E24B10C31E79778C008FF55B /* GoogleBooksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10C21E79778C008FF55B /* GoogleBooksAPI.swift */; };
 		E24B10C71E798992008FF55B /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10C61E798992008FF55B /* Book.swift */; };
-		E24B10C91E7AF821008FF55B /* BookOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24B10C81E7AF821008FF55B /* BookOverviewTableViewCell.swift */; };
 		E25E82061E817AF6003DC4DB /* PublicationDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25E82051E817AF6003DC4DB /* PublicationDate.swift */; };
 		E25E82081E8297A4003DC4DB /* BookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25E82071E8297A4003DC4DB /* BookListViewController.swift */; };
+		E25E820E1E83EA83003DC4DB /* BookOverviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E25E820D1E83EA83003DC4DB /* BookOverviewTableViewCell.xib */; };
+		E25E82101E83EBDF003DC4DB /* BookOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25E820F1E83EBDF003DC4DB /* BookOverviewTableViewCell.swift */; };
 		E2DE33181E7FE8F000975479 /* BookCaseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE33171E7FE8F000975479 /* BookCaseUITests.swift */; };
 		E2DE33201E7FF8C000975479 /* BookDetailPreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE331F1E7FF8C000975479 /* BookDetailPreviewTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -51,9 +52,10 @@
 		E24B10BF1E79776B008FF55B /* GoogleBooksConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksConstants.swift; sourceTree = "<group>"; };
 		E24B10C21E79778C008FF55B /* GoogleBooksAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAPI.swift; sourceTree = "<group>"; };
 		E24B10C61E798992008FF55B /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		E24B10C81E7AF821008FF55B /* BookOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookOverviewTableViewCell.swift; sourceTree = "<group>"; };
 		E25E82051E817AF6003DC4DB /* PublicationDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicationDate.swift; sourceTree = "<group>"; };
 		E25E82071E8297A4003DC4DB /* BookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListViewController.swift; sourceTree = "<group>"; };
+		E25E820D1E83EA83003DC4DB /* BookOverviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookOverviewTableViewCell.xib; sourceTree = "<group>"; };
+		E25E820F1E83EBDF003DC4DB /* BookOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookOverviewTableViewCell.swift; sourceTree = "<group>"; };
 		E2DE33151E7FE8F000975479 /* BookCaseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookCaseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DE33171E7FE8F000975479 /* BookCaseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCaseUITests.swift; sourceTree = "<group>"; };
 		E2DE33191E7FE8F000975479 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				E24B10C51E79824E008FF55B /* Model */,
 				E24B10C41E79820F008FF55B /* ViewController */,
 				E24B10AF1E7975DE008FF55B /* Main.storyboard */,
+				E25E820D1E83EA83003DC4DB /* BookOverviewTableViewCell.xib */,
 				E24B10B21E7975DE008FF55B /* Assets.xcassets */,
 				E24B10B41E7975DE008FF55B /* LaunchScreen.storyboard */,
 				E24B10B71E7975DE008FF55B /* Info.plist */,
@@ -126,7 +129,7 @@
 			children = (
 				E25E82071E8297A4003DC4DB /* BookListViewController.swift */,
 				E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */,
-				E24B10C81E7AF821008FF55B /* BookOverviewTableViewCell.swift */,
+				E25E820F1E83EBDF003DC4DB /* BookOverviewTableViewCell.swift */,
 				E21EDBA41E7EDC8D003EFD2E /* BookDetailTableViewController.swift */,
 				E216700C1E7EE30400EB9E1E /* BookDetailTableViewCell.swift */,
 				E216700E1E7EE35600EB9E1E /* BookDetailCoverTableViewCell.swift */,
@@ -241,6 +244,7 @@
 				E24B10B61E7975DE008FF55B /* LaunchScreen.storyboard in Resources */,
 				E24B10B31E7975DE008FF55B /* Assets.xcassets in Resources */,
 				E24B10B11E7975DE008FF55B /* Main.storyboard in Resources */,
+				E25E820E1E83EA83003DC4DB /* BookOverviewTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,13 +263,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E24B10AE1E7975DE008FF55B /* BookSearchViewController.swift in Sources */,
-				E24B10C91E7AF821008FF55B /* BookOverviewTableViewCell.swift in Sources */,
 				E24B10C11E79776B008FF55B /* GoogleBooksConstants.swift in Sources */,
 				E216700F1E7EE35600EB9E1E /* BookDetailCoverTableViewCell.swift in Sources */,
 				E21EDBA51E7EDC8D003EFD2E /* BookDetailTableViewController.swift in Sources */,
 				E25E82061E817AF6003DC4DB /* PublicationDate.swift in Sources */,
 				E216700D1E7EE30400EB9E1E /* BookDetailTableViewCell.swift in Sources */,
 				E24B10C71E798992008FF55B /* Book.swift in Sources */,
+				E25E82101E83EBDF003DC4DB /* BookOverviewTableViewCell.swift in Sources */,
 				E2DE33201E7FF8C000975479 /* BookDetailPreviewTableViewCell.swift in Sources */,
 				E24B10C01E79776B008FF55B /* GoogleBooksAPIKey.swift in Sources */,
 				E25E82081E8297A4003DC4DB /* BookListViewController.swift in Sources */,

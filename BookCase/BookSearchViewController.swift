@@ -14,14 +14,19 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var googleBooksSearchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
     @IBOutlet weak var searchActivityIndicatorView: UIActivityIndicatorView!
-    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
+
         googleBooksSearchBar.delegate = self
         searchResultTableView.isHidden = true
+        
+        tableView.rowHeight = UITableViewAutomaticDimension;
+        tableView.estimatedRowHeight = 105.0;
     }
     
     // MARK: - IBActions
@@ -95,6 +100,11 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
         detailVC.book = BookLibrary.shared.books[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Self-sizing table view cell
+        return UITableViewAutomaticDimension
     }
     
 }

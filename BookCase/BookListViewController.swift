@@ -10,11 +10,17 @@ import UIKit
 
 class BookListViewController: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView!
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
+        
+        tableView.rowHeight = UITableViewAutomaticDimension;
+        tableView.estimatedRowHeight = 105.0;
+        
     }
     
     /*
@@ -46,8 +52,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        // TODO: UIElements not initialized yet so this can't work!!!
-        //cell.configureCell(book: BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!))
+        cell.configureCell(book: BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!))
         
         return cell
     }
@@ -56,6 +61,10 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
         detailVC.book = BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!)
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
 }

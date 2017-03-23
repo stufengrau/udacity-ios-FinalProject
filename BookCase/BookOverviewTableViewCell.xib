@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookOverviewCell" id="8vu-rE-3pD" customClass="BookOverviewTableViewCell" customModule="BookCase" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8vu-rE-3pD" id="0Y0-DM-tYb">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HRI-K9-EzL">
+                        <rect key="frame" x="8" y="8" width="66.5" height="88.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="HRI-K9-EzL" secondAttribute="height" multiplier="3:4" id="DC7-8O-vTB"/>
+                            <constraint firstAttribute="height" constant="88.5" id="E43-O2-Tvu"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLV-Ur-HMm">
+                        <rect key="frame" x="82.5" y="8" width="284.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authors" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9M-77-tdY">
+                        <rect key="frame" x="82.5" y="28.5" width="284.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publisher" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7HO-a1-ANW">
+                        <rect key="frame" x="82.5" y="46.5" width="284.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="S9M-77-tdY" firstAttribute="top" secondItem="pLV-Ur-HMm" secondAttribute="bottom" id="AbR-7a-WY2"/>
+                    <constraint firstItem="pLV-Ur-HMm" firstAttribute="trailing" secondItem="0Y0-DM-tYb" secondAttribute="trailing" constant="-8" id="E5m-Yz-x9q"/>
+                    <constraint firstItem="HRI-K9-EzL" firstAttribute="top" secondItem="0Y0-DM-tYb" secondAttribute="topMargin" id="KMa-f7-8AS"/>
+                    <constraint firstItem="7HO-a1-ANW" firstAttribute="width" secondItem="pLV-Ur-HMm" secondAttribute="width" id="MtH-fS-0W7"/>
+                    <constraint firstItem="S9M-77-tdY" firstAttribute="leading" secondItem="HRI-K9-EzL" secondAttribute="trailing" constant="8" id="PCo-lR-0wv"/>
+                    <constraint firstItem="HRI-K9-EzL" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="0Y0-DM-tYb" secondAttribute="bottomMargin" id="SJg-M7-KcG"/>
+                    <constraint firstItem="7HO-a1-ANW" firstAttribute="leading" secondItem="HRI-K9-EzL" secondAttribute="trailing" constant="8" id="ZAu-Em-CGC"/>
+                    <constraint firstItem="S9M-77-tdY" firstAttribute="width" secondItem="pLV-Ur-HMm" secondAttribute="width" id="aKK-ZD-8WV"/>
+                    <constraint firstItem="pLV-Ur-HMm" firstAttribute="leading" secondItem="HRI-K9-EzL" secondAttribute="trailing" constant="8" id="ipu-2v-GZR"/>
+                    <constraint firstItem="pLV-Ur-HMm" firstAttribute="top" secondItem="0Y0-DM-tYb" secondAttribute="topMargin" id="kAt-C5-J5j"/>
+                    <constraint firstItem="7HO-a1-ANW" firstAttribute="top" secondItem="S9M-77-tdY" secondAttribute="bottom" id="u7L-pQ-cZI"/>
+                    <constraint firstItem="HRI-K9-EzL" firstAttribute="leading" secondItem="0Y0-DM-tYb" secondAttribute="leadingMargin" id="uPF-eu-kS2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="authors" destination="S9M-77-tdY" id="VTV-ic-YpT"/>
+                <outlet property="bookThumbnail" destination="HRI-K9-EzL" id="udx-vS-Na3"/>
+                <outlet property="publisher" destination="7HO-a1-ANW" id="n3p-ud-pn6"/>
+                <outlet property="title" destination="pLV-Ur-HMm" id="xeW-J4-xho"/>
+            </connections>
+            <point key="canvasLocation" x="-214.5" y="198.5"/>
+        </tableViewCell>
+    </objects>
+</document>
