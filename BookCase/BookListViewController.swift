@@ -60,6 +60,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
+        detailVC.detailViewState = DetailViewState.Share
         detailVC.book = BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }

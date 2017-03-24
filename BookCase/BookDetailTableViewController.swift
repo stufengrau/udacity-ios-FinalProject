@@ -8,10 +8,17 @@
 
 import UIKit
 
+enum DetailViewState {
+    case Save
+    case Share
+}
+
 class BookDetailTableViewController: UITableViewController {
     
     // MARK: - Propterites
     var book: Book!
+    var detailViewState: DetailViewState!
+    
     private let numberOfCells = 6
     
     // MARK: - View Lifecycle
@@ -24,7 +31,37 @@ class BookDetailTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 44.0;
         
+        navigationItem.rightBarButtonItem = getRightNavigationBarButtonItem()
+        
     }
+    
+    func saveBook(sender: UIBarButtonItem) {
+        debugPrint("Save button pressed")
+    }
+    
+    func shareBook(sender: UIBarButtonItem) {
+        debugPrint("Share button pressed")
+    }
+    
+    private func getRightNavigationBarButtonItem() -> UIBarButtonItem? {
+        
+        let rightNavigationBarButton: UIBarButtonItem
+        
+        guard let detailViewState = detailViewState else {
+            assertionFailure("detailViewState not set!")
+            return nil
+        }
+        
+        switch detailViewState {
+        case .Save:
+            rightNavigationBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBook(sender:)))
+        case .Share:
+            rightNavigationBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(shareBook(sender:)))
+        }
+        
+        return rightNavigationBarButton
+    }
+    
     
     // MARK: - Table view data source
     
