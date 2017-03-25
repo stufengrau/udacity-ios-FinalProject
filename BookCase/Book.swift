@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: Refactor Book Protocol!
 protocol Book {
     var bookInformation: BookInformation { get }
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void)
@@ -74,45 +75,40 @@ struct BookInformation {
     let pages: Int?
     let googleBookURL: String?
     
-    // MARK: - Initializer
-    init?(_ book: [String:AnyObject]) {
-        
+    // Create Book Information from JSON Object
+    static func from(json: [String:AnyObject]) -> BookInformation? {
         // Make sure, all necessary keys have a value
-        guard let title = book[GoogleBooksAPI.GoogleBooksResponseKeys.Title] as? String else {
+        guard let title = json[GoogleBooksAPI.GoogleBooksResponseKeys.Title] as? String else {
             return nil
         }
         
-        self.title = title
-        
-        // TODO: Refactor?
-        if let bookURL = book[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
-            self.googleBookURL = rewriteLinkToHttps(url: bookURL)
-        } else {
-            self.googleBookURL = nil
+        var googleBookURL: String? = nil
+        if let bookURL = json[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
+            googleBookURL = rewriteLinkToHttps(url: bookURL)
         }
         
-        // TODO: Refactor?
-        if let imageLinks = book[GoogleBooksAPI.GoogleBooksResponseKeys.ImageLinks] as? [String:AnyObject], let imageURL =  imageLinks[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String {
-            self.coverURL = rewriteLinkToHttps(url: imageURL)
-        } else {
-            self.coverURL = nil
+        var coverURL: String? = nil
+        if let imageLinks = json[GoogleBooksAPI.GoogleBooksResponseKeys.ImageLinks] as? [String:AnyObject], let imageURL =  imageLinks[GoogleBooksAPI.GoogleBooksResponseKeys.SmallThumbnailURL] as? String {
+            coverURL = rewriteLinkToHttps(url: imageURL)
         }
         
-        self.subtitle = book[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
-        self.publisher = book[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
-        self.pages = book[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
+        let subtitle = json[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
+        let publisher = json[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
+        let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         
-        self.publishedDate = PublicationDate(isoDate: book[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
+        let publishedDate = PublicationDate(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
         
-        self.authors = book[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+        let authors = json[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+        
+        return BookInformation(coverURL: coverURL, title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, googleBookURL: googleBookURL)
         
     }
+    
 }
 
 // MARK: -
 // Create an array of books
 func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
-    
     
     var listOfBooks = [Book]()
     
@@ -123,13 +119,14 @@ func createListOfBooks(_ bookSearchResult: [[String:AnyObject]]) -> [Book] {
         }
         
         // Add the book to the list, if the book information could be created
-        if let bookInformation = BookInformation(bookInfo) {
+        if let bookInformation = BookInformation.from(json: bookInfo) {
             listOfBooks.append(BookImageCaching(bookInformation: bookInformation))
         }
     }
     
     return listOfBooks
 }
+
 
 // Make sure URLs start with https
 func rewriteLinkToHttps(url: String) -> String {

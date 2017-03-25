@@ -53,7 +53,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        cell.configureCell(book: BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!))
+        cell.configureCell(book: BookImageCaching(bookInformation: BookInformation.from(json: ["title" : "Test" as AnyObject])!))
         
         return cell
     }
@@ -61,7 +61,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
         detailVC.detailViewState = DetailViewState.Share
-        detailVC.book = BookImageCaching(bookInformation: BookInformation(["title" : "Test" as AnyObject])!)
+        detailVC.book = BookImageCaching(bookInformation: BookInformation.from(json: ["title" : "Test" as AnyObject])!)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
