@@ -96,7 +96,7 @@ struct BookInformation {
         let publisher = json[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         
-        let publishedDate = PublicationDate(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
+        let publishedDate = PublicationDate.from(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
         
         let authors = json[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
         

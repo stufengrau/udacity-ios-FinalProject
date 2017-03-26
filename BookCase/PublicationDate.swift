@@ -12,7 +12,7 @@ struct PublicationDate: CustomStringConvertible {
     
     // MARK: - Properties
     var date: Date
-    private var dateType: DateType
+    var dateType: DateType
     
     // Return a custom description for the different date types
     var description: String {
@@ -31,16 +31,14 @@ struct PublicationDate: CustomStringConvertible {
     // The dates returned by Google Books are ISO-formatted strings
     // and can contain only Year, Year and Month, or Year, Month and Day
     // How to iterate over an enumeration see http://stackoverflow.com/a/24137319
-    private enum DateType: String {
+    enum DateType: String {
         case Year = "yyyy"
         case YearMonth = "yyyy-MM"
         case YearMonthDay = "yyyy-MM-dd"
         static let allValues = [Year, YearMonth, YearMonthDay]
     }
     
-    // MARK: - Initializer
-    init?(isoDate: String?) {
-        
+    static func from(isoDate: String?) -> PublicationDate?{
         guard let isoDate = isoDate else {
             return nil
         }
@@ -53,15 +51,12 @@ struct PublicationDate: CustomStringConvertible {
             dateFormatter.dateFormat = dateType.rawValue
             if let date = dateFormatter.date(from: isoDate) {
                 // If a date could be formatted, store values and return
-                self.date = date
-                self.dateType = dateType
-                return
+                return PublicationDate(date: date, dateType: dateType)
             }
         }
         
         // No valid date present
         return nil
-        
     }
     
 }
