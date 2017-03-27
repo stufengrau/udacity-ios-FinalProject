@@ -19,6 +19,11 @@ class BookDetailTableViewController: UITableViewController {
     var book: Book!
     var detailViewState: DetailViewState!
     
+    var stack: CoreDataStack {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        return delegate.stack
+    }
+    
     private let numberOfCells = 6
     
     // MARK: - View Lifecycle
@@ -37,6 +42,16 @@ class BookDetailTableViewController: UITableViewController {
     
     func saveBook(sender: UIBarButtonItem) {
         debugPrint("Save button pressed")
+        let coreDataBook = BookCoreData(bookInformation: book.bookInformation, context: stack.context)
+        book.fetchCoverImage { (coverImage) in
+            DispatchQueue.main.async {
+                coreDataBook.coverImage = coverImage
+                self.stack.save()
+            }
+        }
+        stack.save()
+        
+        _ = navigationController?.popViewController(animated: true)
     }
     
     func shareBook(sender: UIBarButtonItem) {
