@@ -33,9 +33,6 @@ public class BookCoreData: NSManagedObject, Book {
     
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
         completion(coverImage)
-        fetchCoverImage(completion: { (coverImage) in
-            self.coverImage = coverImage
-        })
     }
 
     
