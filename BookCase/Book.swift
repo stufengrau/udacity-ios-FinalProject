@@ -66,7 +66,6 @@ class BookLibrary {
 struct BookInformation {
     
     // MARK: - Properties
-    let coverURL: String?
     let title: String
     let subtitle: String?
     let authors: [String]
@@ -74,6 +73,7 @@ struct BookInformation {
     let publishedDate: PublicationDate?
     let pages: Int?
     let googleBookURL: String?
+    let coverURL: String?
     
     // Create Book Information from JSON Object
     static func from(json: [String:AnyObject]) -> BookInformation? {
@@ -81,6 +81,12 @@ struct BookInformation {
         guard let title = json[GoogleBooksAPI.GoogleBooksResponseKeys.Title] as? String else {
             return nil
         }
+        
+        let subtitle = json[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
+        let authors = json[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+        let publisher = json[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
+        let publishedDate = PublicationDate.from(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
+        let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         
         var googleBookURL: String? = nil
         if let bookURL = json[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
@@ -92,15 +98,7 @@ struct BookInformation {
             coverURL = rewriteLinkToHttps(url: imageURL)
         }
         
-        let subtitle = json[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
-        let publisher = json[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
-        let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
-        
-        let publishedDate = PublicationDate.from(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
-        
-        let authors = json[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
-        
-        return BookInformation(coverURL: coverURL, title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, googleBookURL: googleBookURL)
+        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, googleBookURL: googleBookURL, coverURL: coverURL)
         
     }
     
