@@ -35,6 +35,10 @@ public class BookCoreData: NSManagedObject, Book {
         return self.coverImage
     }
     
+    var titleIndex: String {
+        return String(title.uppercased().characters.first ?? Character("-"))
+    }
+    
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
         if let coverImage = self.coverImage {
             completion(coverImage)
@@ -57,7 +61,7 @@ public class BookCoreData: NSManagedObject, Book {
             }
         }
     }
-
+    
     
     // TODO: Finish initializer
     convenience init(book: Book, context: NSManagedObjectContext) {

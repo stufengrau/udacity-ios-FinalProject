@@ -48,7 +48,7 @@ class BookListViewController: UIViewController {
         fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
         
     }
     
@@ -69,12 +69,18 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        guard let sections = fetchedResultsController?.sections else { return 0 }
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let section = fetchedResultsController?.sections?[section] else { return 0 }
-        return section.numberOfObjects
+        guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
+        return sectionInfo.numberOfObjects
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
+        return sectionInfo.name
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,7 +105,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
             
             stack.context.delete(fetchedResultsController?.object(at: indexPath) as! NSManagedObject)
             stack.save()
-
+            
         }
     }
     
@@ -111,20 +117,20 @@ extension BookListViewController: NSFetchedResultsControllerDelegate {
         tableView.beginUpdates()
     }
     
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        
-//        let set = IndexSet(integer: sectionIndex)
-//        
-//        switch (type) {
-//        case .insert:
-//            tableView.insertSections(set, with: .fade)
-//        case .delete:
-//            tableView.deleteSections(set, with: .fade)
-//        default:
-//            // irrelevant in our case
-//            break
-//        }
-//    }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let set = IndexSet(integer: sectionIndex)
+        
+        switch (type) {
+        case .insert:
+            tableView.insertSections(set, with: .fade)
+        case .delete:
+            tableView.deleteSections(set, with: .fade)
+        default:
+            // irrelevant in our case
+            break
+        }
+    }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
@@ -138,6 +144,7 @@ extension BookListViewController: NSFetchedResultsControllerDelegate {
         case .move:
             assertionFailure("move")
         }
+        
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
