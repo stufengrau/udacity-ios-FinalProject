@@ -42,13 +42,7 @@ class BookDetailTableViewController: UITableViewController {
     
     func saveBook(sender: UIBarButtonItem) {
         debugPrint("Save button pressed")
-        let coreDataBook = BookCoreData(bookInformation: book.bookInformation, context: stack.context)
-        book.fetchCoverImage { (coverImage) in
-            DispatchQueue.main.async {
-                coreDataBook.coverImage = coverImage
-                self.stack.save()
-            }
-        }
+        _ = BookCoreData(book: book, context: stack.context)
         stack.save()
         
         _ = navigationController?.popViewController(animated: true)

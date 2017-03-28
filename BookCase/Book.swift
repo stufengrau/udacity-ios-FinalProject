@@ -11,6 +11,7 @@ import UIKit
 // TODO: Refactor Book Protocol!
 protocol Book {
     var bookInformation: BookInformation { get }
+    var cachedCoverImage: UIImage? { get }
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void)
 }
 
@@ -19,17 +20,17 @@ class BookImageCaching: Book {
     
     // MARK: - Properties
     let bookInformation: BookInformation
-    private var coverImage: UIImage?
+    var cachedCoverImage: UIImage?
     
     // MARK: - Initializer
     init(bookInformation: BookInformation) {
         self.bookInformation = bookInformation
-        self.coverImage = nil
+        self.cachedCoverImage = nil
     }
     
     // MARK: - Fetch cover image
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
-        if let coverImage = self.coverImage {
+        if let coverImage = self.cachedCoverImage {
             completion(coverImage)
         } else {
             if let coverImageURL = bookInformation.coverURL {
@@ -38,8 +39,8 @@ class BookImageCaching: Book {
                         completion(nil)
                         return
                     }
-                    self.coverImage = UIImage(data: imageData)
-                    completion(self.coverImage)
+                    self.cachedCoverImage = UIImage(data: imageData)
+                    completion(self.cachedCoverImage)
                 })
             } else {
                 completion(nil)

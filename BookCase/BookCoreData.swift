@@ -31,26 +31,50 @@ public class BookCoreData: NSManagedObject, Book {
         return pagesAttr > 0 ? Int(pagesAttr) : nil
     }
     
+    var cachedCoverImage: UIImage? {
+        return self.coverImage
+    }
+    
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
-        completion(coverImage)
+        if let coverImage = self.coverImage {
+            completion(coverImage)
+        } else {
+            if let coverImageURL = self.coverURL {
+                GoogleBooksAPI.shared.getBookImage(for: coverImageURL, completionHandler: { (data) in
+                    guard let imageData = data else {
+                        completion(nil)
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        debugPrint("Cover Image fetched")
+                        self.coverImage = UIImage(data: imageData)
+                        try? self.managedObjectContext?.save()
+                    }
+                    completion(self.coverImage)
+                })
+            } else {
+                completion(nil)
+            }
+        }
     }
 
     
     // TODO: Finish initializer
-    convenience init(bookInformation: BookInformation, context: NSManagedObjectContext) {
+    convenience init(book: Book, context: NSManagedObjectContext) {
         if let ent = NSEntityDescription.entity(forEntityName: "Book", in: context) {
             self.init(entity: ent, insertInto: context)
-            self.title = bookInformation.title
-            self.subtitle = bookInformation.subtitle
-            self.authors = bookInformation.authors
-            self.publisher = bookInformation.publisher
-            if let publicationDate = bookInformation.publishedDate {
+            self.title = book.bookInformation.title
+            self.subtitle = book.bookInformation.subtitle
+            self.authors = book.bookInformation.authors
+            self.publisher = book.bookInformation.publisher
+            if let publicationDate = book.bookInformation.publishedDate {
                 self.publishedDateAttr = getDateAndTypeFrom(publicationDate: publicationDate).date
                 self.publishedDateTypeAttr = getDateAndTypeFrom(publicationDate: publicationDate).type
             }
-            self.pagesAttr = Int16(bookInformation.pages ?? 0)
-            self.googleBookURL = bookInformation.googleBookURL
-            self.coverURL = bookInformation.coverURL
+            self.pagesAttr = Int16(book.bookInformation.pages ?? 0)
+            self.googleBookURL = book.bookInformation.googleBookURL
+            self.coverURL = book.bookInformation.coverURL
+            self.coverImage = book.cachedCoverImage
             
         } else {
             fatalError("Unable to find Entity name!")
