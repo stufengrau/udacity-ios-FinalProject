@@ -39,6 +39,10 @@ class BookListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if GoogleBooksAPI.GoogleBooksAPIKey.APIKey == "" {
+            showAlert(title: "API Key missing", message: "Please provide a Goolge Books API Key in the GoogleBooksAPIKey.swift file.")
+        }
+        
         tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
         
         // Self-Sizing Table View Cells
@@ -61,6 +65,7 @@ class BookListViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
     
 }
 
