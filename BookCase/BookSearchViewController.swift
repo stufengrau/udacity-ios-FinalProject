@@ -58,8 +58,6 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
             }
             switch result {
             case .success:
-                debugPrint("Google Books Search was successful:")
-                dump(BookLibrary.shared.books)
                 DispatchQueue.main.async {
                     self.searchResultTableView.isHidden = false
                     self.searchResultTableView.reloadData()
@@ -69,7 +67,9 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
             case .nothingFound:
                 debugPrint("Nothing found for: \(searchTerm)")
             case .failure:
-                debugPrint("Network failure. Please try again later.")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Network Error", message: "Please try again later.")
+                }
             }
         }
         

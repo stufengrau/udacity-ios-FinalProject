@@ -12,12 +12,10 @@ import UIKit
 extension UIViewController {
     
     func showAlert(title: String?, message errormessage: String) {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: title, message: errormessage, preferredStyle: .alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-            alertController.addAction(dismissAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
+        let alertController = UIAlertController(title: title, message: errormessage, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+        alertController.addAction(dismissAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }
