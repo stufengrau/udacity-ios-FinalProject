@@ -19,7 +19,7 @@ extension BookCoreData {
     
     @NSManaged public var title: String
     @NSManaged public var subtitle: String?
-    @NSManaged public var authors: [String]
+    @NSManaged public var authors: String
     @NSManaged public var publisher: String?
     @NSManaged public var publishedDateAttr: Date?
     @NSManaged public var publishedDateTypeAttr: String?

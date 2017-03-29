@@ -71,7 +71,7 @@ struct BookInformation {
     // MARK: - Properties
     let title: String
     let subtitle: String?
-    let authors: [String]
+    let authors: String
     let publisher: String?
     let publishedDate: PublicationDate?
     let pages: Int?
@@ -86,7 +86,8 @@ struct BookInformation {
         }
         
         let subtitle = json[GoogleBooksAPI.GoogleBooksResponseKeys.Subtitle] as? String
-        let authors = json[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+        let authorsArray = json[GoogleBooksAPI.GoogleBooksResponseKeys.Authors] as? [String] ?? []
+        let authors = authorsArray.joined(separator: ", ")
         let publisher = json[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         let publishedDate = PublicationDate.from(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
         let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int

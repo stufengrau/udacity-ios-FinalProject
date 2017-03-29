@@ -45,7 +45,7 @@ class BookOverviewTableViewCell: UITableViewCell {
         
         title.text = book.bookInformation.title
         publisher.text = book.bookInformation.publisher
-        authors.text = book.bookInformation.authors.joined(separator: ", ")
+        authors.text = book.bookInformation.authors
     }
     
 }

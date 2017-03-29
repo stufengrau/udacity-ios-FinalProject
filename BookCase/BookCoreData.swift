@@ -38,7 +38,7 @@ public class BookCoreData: NSManagedObject, Book {
     }
     
     var titleIndex: String {
-        return String(title.uppercased().characters.first ?? Character("-"))
+        return String(title.uppercased().characters.first ?? Character(""))
     }
     
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {

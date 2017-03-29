@@ -41,15 +41,14 @@ class BookDetailTableViewController: UITableViewController {
     }
     
     func saveBook(sender: UIBarButtonItem) {
-        debugPrint("Save button pressed")
         _ = BookCoreData(book: book, context: stack.context)
         stack.save()
         
         _ = navigationController?.popViewController(animated: true)
     }
     
+    // TODO: Implement Activity View
     func shareBook(sender: UIBarButtonItem) {
-        debugPrint("Share button pressed")
     }
     
     private func getRightNavigationBarButtonItem() -> UIBarButtonItem? {
@@ -96,12 +95,13 @@ class BookDetailTableViewController: UITableViewController {
             cell = bookDetailCoverCell
         case 1:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            if book.bookInformation.authors.count == 0 {
+            let authors = book.bookInformation.authors
+            if (authors == "") {
                 bookDetailCell.configureCell(headline: "Author", content: nil)
-            } else if book.bookInformation.authors.count == 1 {
-                bookDetailCell.configureCell(headline: "Author", content: book.bookInformation.authors[0])
+            } else if !authors.contains(", ") {
+                bookDetailCell.configureCell(headline: "Author", content: authors)
             } else {
-                bookDetailCell.configureCell(headline: "Authors", content: book.bookInformation.authors.joined(separator: ", "))
+                bookDetailCell.configureCell(headline: "Authors", content: authors)
             }
             cell = bookDetailCell
         case 2:
