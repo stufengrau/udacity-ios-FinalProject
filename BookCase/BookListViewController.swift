@@ -11,16 +11,20 @@ import CoreData
 
 class BookListViewController: UIViewController {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var booksSortedBy: UISegmentedControl!
     
+    
+    // MARK: - Properties
     var stack: CoreDataStack {
         let delegate = UIApplication.shared.delegate as! AppDelegate
         return delegate.stack
     }
     
-    var fetchRequest: NSFetchRequest<NSFetchRequestResult>!
+    var fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
     
-    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>? {
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
             // Whenever the frc changes, we execute the search and reload the data
             fetchedResultsController?.delegate = self
@@ -29,31 +33,51 @@ class BookListViewController: UIViewController {
         }
     }
     
-    func executeSearch() {
-        if let fc = fetchedResultsController {
-            try? fc.performFetch()
-        }
-    }
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Check if Google Books API Key is set
         if GoogleBooksAPI.GoogleBooksAPIKey.APIKey == "" {
             showAlert(title: "API Key missing", message: "Please provide a Goolge Books API Key in the GoogleBooksAPIKey.swift file.")
         }
         
+        // Register Book Overview Cell
         tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
         
         // Self-Sizing Table View Cells
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
         
-        fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        // Sort results by segmented control
+        sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
-        
+    }
+    
+    // MARK: - IBActions
+    @IBAction func sortBooksBy(_ sender: UISegmentedControl) {
+        sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
+    }
+    
+    // MARK: - Helper functions
+    private func executeSearch() {
+        if let fc = fetchedResultsController {
+            try? fc.performFetch()
+        }
+    }
+    
+    private func sortFetchedResultsBy(selectedSegmentIndex: Int) {
+        switch selectedSegmentIndex {
+        case 0:
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
+        case 1:
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "authors", ascending: true)]
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.authors), cacheName: nil)
+        default:
+            assertionFailure("All segmented control indicies must be implemented.")
+        }
     }
     
     /*
@@ -66,13 +90,12 @@ class BookListViewController: UIViewController {
      }
      */
     
-    
 }
 
-// MARK: -
+// MARK: - Extensions
 extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
-    // MARK: - Table view data source
+    // MARK: Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         guard let sections = fetchedResultsController?.sections else { return 0 }
         return sections.count
@@ -85,6 +108,9 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
+        if sectionInfo.name == "" {
+            return "Unknown"
+        }
         return sectionInfo.name
     }
     
@@ -107,10 +133,8 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
             stack.context.delete(fetchedResultsController?.object(at: indexPath) as! NSManagedObject)
             stack.save()
-            
         }
     }
     
@@ -118,6 +142,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension BookListViewController: NSFetchedResultsControllerDelegate {
+    // MARK: Fetched Results Controller Delegate
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
