@@ -15,7 +15,6 @@ class BookListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var booksSortedBy: UISegmentedControl!
     
-    
     // MARK: - Properties
     var stack: CoreDataStack {
         let delegate = UIApplication.shared.delegate as! AppDelegate
@@ -33,6 +32,7 @@ class BookListViewController: UIViewController {
         }
     }
     
+    private let sortByKey = "Sort by"
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -50,7 +50,8 @@ class BookListViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
         
-        // Sort results by segmented control
+        // Sort results by saved segmented control state
+        booksSortedBy.selectedSegmentIndex = UserDefaults.standard.integer(forKey: sortByKey)
         sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
         
     }
@@ -68,10 +69,14 @@ class BookListViewController: UIViewController {
     }
     
     private func sortFetchedResultsBy(selectedSegmentIndex: Int) {
+        // Save segmented control state in UserDefaults
+        UserDefaults.standard.set(selectedSegmentIndex, forKey: sortByKey)
         switch selectedSegmentIndex {
+        // Sort by titel
         case 0:
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
+        // Sort by author
         case 1:
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "authors", ascending: true)]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.authors), cacheName: nil)
