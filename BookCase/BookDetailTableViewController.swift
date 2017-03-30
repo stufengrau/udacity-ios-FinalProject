@@ -15,7 +15,7 @@ enum DetailViewState {
 
 class BookDetailTableViewController: UITableViewController {
     
-    // MARK: - Propterites
+    // MARK: - Properties
     var book: Book!
     var detailViewState: DetailViewState!
     
@@ -46,9 +46,19 @@ class BookDetailTableViewController: UITableViewController {
         
         _ = navigationController?.popViewController(animated: true)
     }
-    
-    // TODO: Implement Activity View
+
     func shareBook(sender: UIBarButtonItem) {
+        
+        guard let shareURL = book.bookInformation.googleBookURL else {
+            showAlert(title: "Missing Preview URL", message: "Sorry, there is no URL available to share for this book.")
+            return
+        }
+        
+        let shareMessage = "Book Recommendation: \n \n\(book.bookInformation.title) \n\n\(shareURL)"
+
+        let activityController = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+
     }
     
     private func getRightNavigationBarButtonItem() -> UIBarButtonItem? {
