@@ -16,14 +16,14 @@ class BookListViewController: UIViewController {
     @IBOutlet weak var booksSortedBy: UISegmentedControl!
     
     // MARK: - Properties
-    var stack: CoreDataStack {
+    fileprivate var stack: CoreDataStack {
         let delegate = UIApplication.shared.delegate as! AppDelegate
         return delegate.stack
     }
     
-    var fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
+    private var fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
     
-    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? {
+    fileprivate var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
             // Whenever the frc changes, we execute the search and reload the data
             fetchedResultsController?.delegate = self
@@ -33,6 +33,10 @@ class BookListViewController: UIViewController {
     }
     
     private let sortByKey = "Sort by"
+    
+    private var searchBar: UISearchBar!
+    fileprivate var notSearching = true
+    fileprivate var filteredBooks: [Book]? = nil
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -54,6 +58,12 @@ class BookListViewController: UIViewController {
         booksSortedBy.selectedSegmentIndex = UserDefaults.standard.integer(forKey: sortByKey)
         sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
         
+        // Configure Search Bar
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        tableView.tableHeaderView = searchBar
+        
     }
     
     // MARK: - IBActions
@@ -68,7 +78,8 @@ class BookListViewController: UIViewController {
         }
     }
     
-    private func sortFetchedResultsBy(selectedSegmentIndex: Int) {
+    // TODO: Refactor ...
+    fileprivate func sortFetchedResultsBy(selectedSegmentIndex: Int) {
         // Save segmented control state in UserDefaults
         UserDefaults.standard.set(selectedSegmentIndex, forKey: sortByKey)
         switch selectedSegmentIndex {
@@ -85,6 +96,8 @@ class BookListViewController: UIViewController {
         }
     }
     
+
+    
     /*
      // MARK: - Navigation
      
@@ -98,25 +111,68 @@ class BookListViewController: UIViewController {
 }
 
 // MARK: - Extensions
+extension BookListViewController: UISearchBarDelegate {
+    // MARK: UISearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        notSearching = false
+        
+        let searchPredicate = NSPredicate(format: "(title contains[c] $text) OR (authors contains[c] $text) OR (publisher contains[c] $text)").withSubstitutionVariables(["text" : searchText])
+        
+        if searchText == "" {
+            filteredBooks = fetchedResultsController?.fetchedObjects as? [Book]
+        } else {
+            filteredBooks = fetchedResultsController?.fetchedObjects?.filter() {
+                return searchPredicate.evaluate(with: $0)
+                } as! [Book]?
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        notSearching = true
+        
+        searchBar.resignFirstResponder()
+        searchBar.text = nil
+        
+        sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+}
+
 extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
+        guard notSearching else { return 1 }
         guard let sections = fetchedResultsController?.sections else { return 0 }
         return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard notSearching else { return filteredBooks?.count ?? 0 }
         guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
         return sectionInfo.numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard notSearching else { return nil }
         guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
-        if sectionInfo.name == "" {
-            return "Unknown"
-        }
-        return sectionInfo.name
+        return sectionInfo.name.isEmpty ? "Unknown" : sectionInfo.name
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -124,7 +180,11 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         let cellIdentifier = "BookOverviewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BookOverviewTableViewCell
         
-        cell.configureCell(book: fetchedResultsController?.object(at: indexPath) as! Book)
+        if notSearching {
+            cell.configureCell(book: fetchedResultsController?.object(at: indexPath) as! Book)
+        } else {
+            cell.configureCell(book: filteredBooks![indexPath.row])
+        }
         
         return cell
     }
