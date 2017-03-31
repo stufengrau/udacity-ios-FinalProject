@@ -23,11 +23,13 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
 
         googleBooksSearchBar.delegate = self
+        googleBooksSearchBar.becomeFirstResponder()
         searchResultTableView.isHidden = true
         
         // Self-Sizing Table View Cells
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
+
     }
     
     // MARK: - IBActions
@@ -38,8 +40,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
     // MARK: - Book Search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        // Dismiss keyboard
-        googleBooksSearchBar.endEditing(true)
+        googleBooksSearchBar.resignFirstResponder()
         
         searchResultTableView.isHidden = true
         searchActivityIndicatorView.startAnimating()
