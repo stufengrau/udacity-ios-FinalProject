@@ -39,9 +39,9 @@ class BookListViewController: UIViewController {
     fileprivate var notSearching = true
     fileprivate var filteredBooks: [Book]? = nil
     
-    fileprivate var emptyBookList: Bool! {
+    fileprivate var bookListIsEmpty: Bool! {
         didSet {
-            if emptyBookList {
+            if bookListIsEmpty {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.tableView.alpha = 0
                     self.booksSortedBy.alpha = 0
@@ -82,12 +82,11 @@ class BookListViewController: UIViewController {
         tableView.tableHeaderView = searchBar
         tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
         
-        if tableView.cellForRow(at: [0,0]) == nil {
+        if !(tableView.visibleCells.count > 0) {
             tableView.alpha = 0
             booksSortedBy.alpha = 0
             emptyBookListHint.alpha = 1
         }
-        
     }
     
     // MARK: - IBActions
@@ -271,7 +270,7 @@ extension BookListViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
-        emptyBookList = tableView.cellForRow(at: [0,0]) == nil
+        bookListIsEmpty = !(tableView.visibleCells.count > 0)
     }
     
 }
