@@ -14,6 +14,7 @@ class BookListViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var booksSortedBy: UISegmentedControl!
+    @IBOutlet weak var emptyBookListHint: UILabel!
     
     // MARK: - Properties
     fileprivate var stack: CoreDataStack {
@@ -37,6 +38,22 @@ class BookListViewController: UIViewController {
     private var searchBar: UISearchBar!
     fileprivate var notSearching = true
     fileprivate var filteredBooks: [Book]? = nil
+    
+    fileprivate var emptyBookList: Bool! {
+        didSet {
+            if emptyBookList {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.tableView.alpha = 0
+                    self.booksSortedBy.alpha = 0
+                    self.emptyBookListHint.alpha = 1
+                })
+            } else {
+                tableView.alpha = 1
+                booksSortedBy.alpha = 1
+                emptyBookListHint.alpha = 0
+            }
+        }
+    }
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -64,6 +81,12 @@ class BookListViewController: UIViewController {
         searchBar.sizeToFit()
         tableView.tableHeaderView = searchBar
         tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
+        
+        if tableView.cellForRow(at: [0,0]) == nil {
+            tableView.alpha = 0
+            booksSortedBy.alpha = 0
+            emptyBookListHint.alpha = 1
+        }
         
     }
     
@@ -248,6 +271,7 @@ extension BookListViewController: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        emptyBookList = tableView.cellForRow(at: [0,0]) == nil
     }
     
 }

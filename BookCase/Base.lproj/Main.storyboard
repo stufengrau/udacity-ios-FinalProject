@@ -231,7 +231,7 @@
             </objects>
             <point key="canvasLocation" x="596" y="815"/>
         </scene>
-        <!--Book List-->
+        <!--My Book List-->
         <scene sceneID="M5A-R9-Xhu">
             <objects>
                 <viewController id="puJ-hM-xW5" customClass="BookListViewController" customModule="BookCase" customModuleProvider="target" sceneMemberID="viewController">
@@ -253,8 +253,35 @@
                                     <barButtonItem title="Wish" id="MK1-PX-Xnf"/>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpg-56-8eB">
+                                <rect key="frame" x="77" y="309" width="220" height="47.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="7IU-zr-xph"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Add books with the ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="➕">
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="AppleColorEmoji"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" icon to your book list.">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uVT-cx-eus">
-                                <rect key="frame" x="0.0" y="92" width="375" height="531"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="523"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="puJ-hM-xW5" id="tcf-Ea-XP6"/>
@@ -262,7 +289,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0be-z3-Sud">
-                                <rect key="frame" x="0.0" y="64" width="375" height="29"/>
+                                <rect key="frame" x="8" y="64" width="359" height="29"/>
                                 <segments>
                                     <segment title="Titel"/>
                                     <segment title="Author"/>
@@ -276,17 +303,19 @@
                         <constraints>
                             <constraint firstItem="nwy-Ng-qEI" firstAttribute="top" secondItem="uVT-cx-eus" secondAttribute="bottom" id="6rE-RX-18k"/>
                             <constraint firstItem="nwy-Ng-qEI" firstAttribute="leading" secondItem="GAN-7S-U3R" secondAttribute="leading" id="7SE-pX-Dcc"/>
-                            <constraint firstItem="0be-z3-Sud" firstAttribute="leading" secondItem="GAN-7S-U3R" secondAttribute="leading" id="AuC-Hk-4fd"/>
                             <constraint firstItem="uVT-cx-eus" firstAttribute="leading" secondItem="GAN-7S-U3R" secondAttribute="leading" id="DA8-ct-nlq"/>
+                            <constraint firstItem="0be-z3-Sud" firstAttribute="trailing" secondItem="GAN-7S-U3R" secondAttribute="trailing" constant="-8" id="Dyy-Oq-osQ"/>
+                            <constraint firstItem="0be-z3-Sud" firstAttribute="leading" secondItem="GAN-7S-U3R" secondAttribute="leading" constant="8" id="O6F-H9-px0"/>
+                            <constraint firstItem="hpg-56-8eB" firstAttribute="centerY" secondItem="GAN-7S-U3R" secondAttribute="centerY" id="QDq-Mv-hPG"/>
                             <constraint firstItem="0be-z3-Sud" firstAttribute="top" secondItem="AMK-1I-wJE" secondAttribute="bottom" id="RQH-pl-qOx"/>
-                            <constraint firstAttribute="trailing" secondItem="nwy-Ng-qEI" secondAttribute="trailing" id="VDl-AH-f7t"/>
-                            <constraint firstAttribute="trailing" secondItem="0be-z3-Sud" secondAttribute="trailing" id="bY1-kd-vk8"/>
-                            <constraint firstAttribute="trailing" secondItem="uVT-cx-eus" secondAttribute="trailing" id="e8Q-vv-8h8"/>
-                            <constraint firstItem="e1I-dj-Z0a" firstAttribute="top" secondItem="nwy-Ng-qEI" secondAttribute="bottom" id="jG4-gB-AY3"/>
-                            <constraint firstItem="uVT-cx-eus" firstAttribute="top" secondItem="0be-z3-Sud" secondAttribute="bottom" id="p0P-VJ-MSe"/>
+                            <constraint firstItem="nwy-Ng-qEI" firstAttribute="trailing" secondItem="GAN-7S-U3R" secondAttribute="trailing" id="VDl-AH-f7t"/>
+                            <constraint firstItem="uVT-cx-eus" firstAttribute="trailing" secondItem="GAN-7S-U3R" secondAttribute="trailing" id="e8Q-vv-8h8"/>
+                            <constraint firstItem="hpg-56-8eB" firstAttribute="centerX" secondItem="GAN-7S-U3R" secondAttribute="centerX" id="guX-uH-mPq"/>
+                            <constraint firstItem="nwy-Ng-qEI" firstAttribute="bottom" secondItem="e1I-dj-Z0a" secondAttribute="top" id="jG4-gB-AY3"/>
+                            <constraint firstItem="uVT-cx-eus" firstAttribute="top" secondItem="0be-z3-Sud" secondAttribute="bottom" constant="8" symbolic="YES" id="p0P-VJ-MSe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Book List" id="FcR-aI-dOU">
+                    <navigationItem key="navigationItem" title="My Book List" id="FcR-aI-dOU">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pAe-du-EmV">
                             <connections>
                                 <segue destination="2RN-VA-A7w" kind="show" id="2I8-pe-SgO"/>
@@ -295,6 +324,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="booksSortedBy" destination="0be-z3-Sud" id="JCc-Hs-SDg"/>
+                        <outlet property="emptyBookListHint" destination="hpg-56-8eB" id="lPn-J1-eEj"/>
                         <outlet property="tableView" destination="uVT-cx-eus" id="rHj-mT-LBz"/>
                     </connections>
                 </viewController>
