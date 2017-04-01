@@ -45,6 +45,12 @@ struct CoreDataStack {
         context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
         
+        // Don't allow book duplicates in Core Data
+        // See contraints in Data Model for Book Entity
+        // http://stackoverflow.com/questions/21130427/how-to-add-unique-constraints-for-some-fields-in-core-data/32814593#32814593
+        // Take care of conflicts during saves by setting a merge policy
+        context.mergePolicy = NSMergePolicy(merge: .rollbackMergePolicyType)
+        
         // Add a SQLite store located in the documents folder
         let fm = FileManager.default
         
