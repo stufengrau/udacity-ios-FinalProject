@@ -42,6 +42,7 @@ extension GoogleBooksAPI {
         static let SmallThumbnailURL = "smallThumbnail"
         static let PreviewURL = "previewLink"
         static let ImageLinks = "imageLinks"
+        static let Language = "language"
     }
     
 }

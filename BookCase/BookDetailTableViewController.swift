@@ -24,7 +24,7 @@ class BookDetailTableViewController: UITableViewController {
         return delegate.stack
     }
     
-    private let numberOfCells = 6
+    private let numberOfCells = 7
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -125,6 +125,14 @@ class BookDetailTableViewController: UITableViewController {
         case 4:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
             bookDetailCell.configureCell(headline: "Publication Date", date: book.bookInformation.publishedDate)
+            cell = bookDetailCell
+        case 5:
+            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
+            if let language = book.bookInformation.language {
+                bookDetailCell.configureCell(headline: "Language", content: Locale.current.localizedString(forIdentifier: language))
+            } else {
+                bookDetailCell.configureCell(headline: "Language", content: nil)
+            }
             cell = bookDetailCell
         default:
             let bookDetailPreviewCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailPreviewCell", for: indexPath) as! BookDetailPreviewTableViewCell

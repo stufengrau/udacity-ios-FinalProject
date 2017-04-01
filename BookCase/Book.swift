@@ -75,8 +75,10 @@ struct BookInformation {
     let publisher: String?
     let publishedDate: PublicationDate?
     let pages: Int?
+    let language: String?
     let googleBookURL: String?
     let coverURL: String?
+    
     
     // Create Book Information from JSON Object
     static func from(json: [String:AnyObject]) -> BookInformation? {
@@ -91,6 +93,7 @@ struct BookInformation {
         let publisher = json[GoogleBooksAPI.GoogleBooksResponseKeys.Publisher] as? String
         let publishedDate = PublicationDate.from(isoDate: json[GoogleBooksAPI.GoogleBooksResponseKeys.PublisedDate] as? String)
         let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
+        let language = json[GoogleBooksAPI.GoogleBooksResponseKeys.Language] as? String
         
         var googleBookURL: String? = nil
         if let bookURL = json[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
@@ -102,7 +105,7 @@ struct BookInformation {
             coverURL = rewriteLinkToHttps(url: imageURL)
         }
         
-        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, googleBookURL: googleBookURL, coverURL: coverURL)
+        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, googleBookURL: googleBookURL, coverURL: coverURL)
         
     }
     

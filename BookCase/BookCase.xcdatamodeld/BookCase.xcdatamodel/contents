@@ -5,6 +5,7 @@
         <attribute name="coverImage" optional="YES" attributeType="Transformable" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="coverURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="googleBookURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pagesAttr" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="publishedDateAttr" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="publishedDateTypeAttr" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +14,6 @@
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>

@@ -25,6 +25,7 @@ extension BookCoreData {
     @NSManaged public var publishedDateTypeAttr: String?
     @NSManaged public var pagesAttr: Int16
     @NSManaged public var googleBookURL: String?
+    @NSManaged public var language: String?
     @NSManaged public var coverURL: String?
     @NSManaged public var coverImage: UIImage?
     
