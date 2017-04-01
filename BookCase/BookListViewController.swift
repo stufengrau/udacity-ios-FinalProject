@@ -63,6 +63,7 @@ class BookListViewController: UIViewController {
         searchBar.delegate = self
         searchBar.sizeToFit()
         tableView.tableHeaderView = searchBar
+        tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
         
     }
     
@@ -138,6 +139,9 @@ extension BookListViewController: UISearchBarDelegate {
         
         sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
         tableView.reloadData()
+        
+        tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: true)
+        
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
