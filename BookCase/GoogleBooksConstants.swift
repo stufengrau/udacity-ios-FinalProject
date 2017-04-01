@@ -43,6 +43,15 @@ extension GoogleBooksAPI {
         static let PreviewURL = "previewLink"
         static let ImageLinks = "imageLinks"
         static let Language = "language"
+        static let IndustryIDs = "industryIdentifiers"
+        static let IndustryIDType = "type"
+        static let Identifier = "identifier"
+    }
+    
+    // MARK: - Google Books Response Values
+    struct GoogleBooksResponseValues {
+        static let ISBN13 = "ISBN_13"
+        static let ISBN10 = "ISBN_10"
     }
     
 }

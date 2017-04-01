@@ -76,6 +76,7 @@ struct BookInformation {
     let publishedDate: PublicationDate?
     let pages: Int?
     let language: String?
+    let isbn: String?
     let googleBookURL: String?
     let coverURL: String?
     
@@ -95,6 +96,22 @@ struct BookInformation {
         let pages = json[GoogleBooksAPI.GoogleBooksResponseKeys.BookPages] as? Int
         let language = json[GoogleBooksAPI.GoogleBooksResponseKeys.Language] as? String
         
+        // Get ISBN if available, prefer ISBN13 over ISBN10
+        var isbn: String?
+        if let industryId = json[GoogleBooksAPI.GoogleBooksResponseKeys.IndustryIDs] as? [[String:AnyObject]] {
+            for type in industryId {
+                if let industryType = type[GoogleBooksAPI.GoogleBooksResponseKeys.IndustryIDType] as? String, let identifier = type[GoogleBooksAPI.GoogleBooksResponseKeys.Identifier] as? String {
+                    if industryType == GoogleBooksAPI.GoogleBooksResponseValues.ISBN13 {
+                        isbn = identifier
+                        break
+                    }
+                    if industryType == GoogleBooksAPI.GoogleBooksResponseValues.ISBN10 {
+                        isbn = identifier
+                    }
+                }
+            }
+        }
+        
         var googleBookURL: String? = nil
         if let bookURL = json[GoogleBooksAPI.GoogleBooksResponseKeys.PreviewURL] as? String {
             googleBookURL = rewriteLinkToHttps(url: bookURL)
@@ -105,7 +122,7 @@ struct BookInformation {
             coverURL = rewriteLinkToHttps(url: imageURL)
         }
         
-        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, googleBookURL: googleBookURL, coverURL: coverURL)
+        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, isbn: isbn, googleBookURL: googleBookURL, coverURL: coverURL)
         
     }
     

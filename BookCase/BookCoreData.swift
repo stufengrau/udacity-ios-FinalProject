@@ -16,7 +16,7 @@ public class BookCoreData: NSManagedObject, Book {
     private var completion: ((_ coverImage: UIImage?) -> Void)?
 
     var bookInformation: BookInformation {
-        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, googleBookURL: googleBookURL, coverURL: coverURL)
+        return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, isbn: isbn, googleBookURL: googleBookURL, coverURL: coverURL)
     }
     
     var publishedDate: PublicationDate? {
@@ -80,6 +80,7 @@ public class BookCoreData: NSManagedObject, Book {
             }
             self.pagesAttr = Int16(book.bookInformation.pages ?? 0)
             self.language = book.bookInformation.language
+            self.isbn = book.bookInformation.isbn
             self.googleBookURL = book.bookInformation.googleBookURL
             self.coverURL = book.bookInformation.coverURL
             self.coverImage = book.cachedCoverImage

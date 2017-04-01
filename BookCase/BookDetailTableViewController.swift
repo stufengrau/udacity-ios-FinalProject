@@ -24,7 +24,7 @@ class BookDetailTableViewController: UITableViewController {
         return delegate.stack
     }
     
-    private let numberOfCells = 7
+    private let numberOfCells = 8
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -120,19 +120,23 @@ class BookDetailTableViewController: UITableViewController {
             cell = bookDetailCell
         case 3:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Pages", pages: book.bookInformation.pages)
-            cell = bookDetailCell
-        case 4:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
             bookDetailCell.configureCell(headline: "Publication Date", date: book.bookInformation.publishedDate)
             cell = bookDetailCell
-        case 5:
+        case 4:
             let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
             if let language = book.bookInformation.language {
                 bookDetailCell.configureCell(headline: "Language", content: Locale.current.localizedString(forIdentifier: language))
             } else {
                 bookDetailCell.configureCell(headline: "Language", content: nil)
             }
+            cell = bookDetailCell
+        case 5:
+            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
+            bookDetailCell.configureCell(headline: "Pages", pages: book.bookInformation.pages)
+            cell = bookDetailCell
+        case 6:
+            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
+            bookDetailCell.configureCell(headline: "ISBN", content: book.bookInformation.isbn)
             cell = bookDetailCell
         default:
             let bookDetailPreviewCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailPreviewCell", for: indexPath) as! BookDetailPreviewTableViewCell
