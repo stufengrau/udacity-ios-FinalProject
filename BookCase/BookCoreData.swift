@@ -13,8 +13,6 @@ import UIKit
 // TODO: Conform to Book Protocol
 public class BookCoreData: NSManagedObject, Book {
     
-    private var completion: ((_ coverImage: UIImage?) -> Void)?
-
     var bookInformation: BookInformation {
         return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, isbn: isbn, googleBookURL: googleBookURL, coverURL: coverURL)
     }
@@ -46,10 +44,9 @@ public class BookCoreData: NSManagedObject, Book {
             completion(coverImage)
         } else {
             if let coverImageURL = self.coverURL {
-                self.completion = completion
                 GoogleBooksAPI.shared.getBookImage(for: coverImageURL, completionHandler: { (data) in
                     guard let imageData = data else {
-                        self.completion?(nil)
+                        completion(nil)
                         return
                     }
                     DispatchQueue.main.async {
@@ -57,7 +54,7 @@ public class BookCoreData: NSManagedObject, Book {
                         self.coverImage = UIImage(data: imageData)
                         try? self.managedObjectContext?.save()
                     }
-                    self.completion?(self.coverImage)
+                    completion(self.coverImage)
                 })
             } else {
                 completion(nil)

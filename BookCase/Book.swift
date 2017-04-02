@@ -21,7 +21,6 @@ class BookImageCaching: Book {
     // MARK: - Properties
     let bookInformation: BookInformation
     var cachedCoverImage: UIImage?
-    private var completion: ((_ coverImage: UIImage?) -> Void)?
 
     // MARK: - Initializer
     init(bookInformation: BookInformation) {
@@ -35,14 +34,13 @@ class BookImageCaching: Book {
             completion(coverImage)
         } else {
             if let coverImageURL = bookInformation.coverURL {
-                self.completion = completion
                 GoogleBooksAPI.shared.getBookImage(for: coverImageURL, completionHandler: { (data) in
                     guard let imageData = data else {
-                        self.completion?(nil)
+                        completion(nil)
                         return
                     }
                     self.cachedCoverImage = UIImage(data: imageData)
-                    self.completion?(self.cachedCoverImage)
+                    completion(self.cachedCoverImage)
                 })
             } else {
                 completion(nil)
