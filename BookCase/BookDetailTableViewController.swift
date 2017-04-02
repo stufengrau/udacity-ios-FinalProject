@@ -49,16 +49,14 @@ class BookDetailTableViewController: UITableViewController {
 
     func shareBook(sender: UIBarButtonItem) {
         
-        guard let shareURL = book.bookInformation.googleBookURL else {
-            showAlert(title: "Missing Preview URL", message: "Sorry, there is no URL available to share for this book.")
-            return
+        switch ShareMessageGenerator(book: book).shareMessage {
+        case .Info(let shareMessage):
+            let activityController = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
+            present(activityController, animated: true, completion: nil)
+        case .Error(let errorTitel, let errorMessage):
+            showAlert(title: errorTitel, message: errorMessage)
         }
         
-        let shareMessage = "Book Recommendation: \n \n\(book.bookInformation.title) \n\n\(shareURL)"
-
-        let activityController = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
-        present(activityController, animated: true, completion: nil)
-
     }
     
     private func getRightNavigationBarButtonItem() -> UIBarButtonItem? {
