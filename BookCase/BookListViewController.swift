@@ -140,7 +140,7 @@ extension BookListViewController: UISearchBarDelegate {
         
         notSearching = false
         
-        let searchPredicate = NSPredicate(format: "(title contains[c] $text) OR (authors contains[c] $text) OR (publisher contains[c] $text)").withSubstitutionVariables(["text" : searchText])
+        let searchPredicate = NSPredicate(format: "(title contains[c] $text) OR (authors contains[c] $text) OR (publisher contains[c] $text) OR (isbn contains[c] $text)").withSubstitutionVariables(["text" : searchText])
         
         if searchText == "" {
             filteredBooks = fetchedResultsController?.fetchedObjects as? [Book]
