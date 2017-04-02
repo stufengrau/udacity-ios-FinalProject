@@ -13,8 +13,11 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
     // MARK: - IBOutlets
     @IBOutlet weak var googleBooksSearchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
+    @IBOutlet weak var outerActivityIndicatorView: UIView!
     @IBOutlet weak var searchActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nothingFoundView: UIView!
+    @IBOutlet weak var nothingFoundMessage: UILabel!
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -29,12 +32,16 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         // Self-Sizing Table View Cells
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
+        
+        outerActivityIndicatorView.isHidden = true
+        nothingFoundView.isHidden = true
 
     }
     
     // MARK: - IBActions
     @IBAction func doneSearchingTapped(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        googleBooksSearchBar.resignFirstResponder()
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Book Search
@@ -42,6 +49,8 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         
         googleBooksSearchBar.resignFirstResponder()
         
+        nothingFoundView.isHidden = true
+        outerActivityIndicatorView.isHidden = false
         searchResultTableView.isHidden = true
         searchActivityIndicatorView.startAnimating()
         
@@ -56,17 +65,21 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         GoogleBooksAPI.shared.searchGoogleBooks(concatenatedSearchTerm) { (result) in
             DispatchQueue.main.async {
                 self.searchActivityIndicatorView.stopAnimating()
+                self.outerActivityIndicatorView.isHidden = true
             }
             switch result {
             case .success:
                 DispatchQueue.main.async {
                     self.searchResultTableView.isHidden = false
                     self.searchResultTableView.reloadData()
-                    // After new search scroll to first row of table view
+                    // After a search scroll to first row of table view
                     self.searchResultTableView.scrollToRow(at: [0,0], at: UITableViewScrollPosition.top, animated: false)
                 }
             case .nothingFound:
-                debugPrint("Nothing found for: \(searchTerm)")
+                DispatchQueue.main.async {
+                    self.nothingFoundMessage.text = "Nothing found for \n\n\"\(searchTerm)\""
+                    self.nothingFoundView.isHidden = false
+                }
             case .failure:
                 DispatchQueue.main.async {
                     self.showAlert(title: "Network Error", message: "Please try again later.")
