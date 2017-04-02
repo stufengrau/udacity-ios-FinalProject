@@ -115,7 +115,7 @@ extension BookSearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
-        detailVC.detailViewState = DetailViewState.Save
+        detailVC.detailViewState = DetailViewState.SaveBook
         detailVC.book = BookLibrary.shared.books[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }

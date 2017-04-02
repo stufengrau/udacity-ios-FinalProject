@@ -9,8 +9,8 @@
 import UIKit
 
 enum DetailViewState {
-    case Save
-    case Share
+    case SaveBook
+    case ShareBook
 }
 
 class BookDetailTableViewController: UITableViewController {
@@ -36,14 +36,13 @@ class BookDetailTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 44.0;
         
-        navigationItem.rightBarButtonItem = getRightNavigationBarButtonItem()
+        navigationItem.rightBarButtonItem = makeRightNavigationBarButtonItem()
         
     }
     
     func saveBook(sender: UIBarButtonItem) {
         _ = BookCoreData(book: book, context: stack.context)
         stack.save()
-        
         _ = navigationController?.popViewController(animated: true)
     }
 
@@ -59,9 +58,7 @@ class BookDetailTableViewController: UITableViewController {
         
     }
     
-    private func getRightNavigationBarButtonItem() -> UIBarButtonItem? {
-        
-        let rightNavigationBarButton: UIBarButtonItem
+    private func makeRightNavigationBarButtonItem() -> UIBarButtonItem? {
         
         guard let detailViewState = detailViewState else {
             assertionFailure("detailViewState not set!")
@@ -69,13 +66,12 @@ class BookDetailTableViewController: UITableViewController {
         }
         
         switch detailViewState {
-        case .Save:
-            rightNavigationBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBook(sender:)))
-        case .Share:
-            rightNavigationBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(shareBook(sender:)))
+        case .SaveBook:
+            return UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBook(sender:)))
+        case .ShareBook:
+            return UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(shareBook(sender:)))
         }
-        
-        return rightNavigationBarButton
+
     }
     
     
