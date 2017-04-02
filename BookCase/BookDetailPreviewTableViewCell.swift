@@ -29,14 +29,9 @@ class BookDetailPreviewTableViewCell: UITableViewCell {
     }
     
     // MARK: - Cell Configuration
-    func configureCell(googlePreviewURL: String?) {
+    func configureCell(book: Book) {
         // Disable Preview Button if no preview URL is set
-        previewURL = googlePreviewURL
-        if (googlePreviewURL != nil) {
-            previewBookButton.isEnabled = true
-        } else {
-            previewBookButton.isEnabled = false
-        }
+        previewBookButton.isEnabled = (book.bookInformation.googleBookURL != nil)
     }
     
     // MARK: - IBActions

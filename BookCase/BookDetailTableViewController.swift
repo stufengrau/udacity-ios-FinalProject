@@ -45,7 +45,7 @@ class BookDetailTableViewController: UITableViewController {
         stack.save()
         _ = navigationController?.popViewController(animated: true)
     }
-
+    
     func shareBook(sender: UIBarButtonItem) {
         
         switch ShareMessageGenerator(book: book).shareMessage {
@@ -71,7 +71,7 @@ class BookDetailTableViewController: UITableViewController {
         case .ShareBook:
             return UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(shareBook(sender:)))
         }
-
+        
     }
     
     
@@ -90,64 +90,26 @@ class BookDetailTableViewController: UITableViewController {
         
         let cell: UITableViewCell
         
-        // TODO: Refactor this code!
         // Configure cell based on cell index
-        switch indexPath.row {
-        case 0:
+        // First and last cell are different cell types
+        if indexPath.row == 0 {
             let bookDetailCoverCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCoverCell", for: indexPath) as! BookDetailCoverTableViewCell
             bookDetailCoverCell.configureCell(book: book)
             cell = bookDetailCoverCell
-        case 1:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            let authors = book.bookInformation.authors
-            if (authors == "") {
-                bookDetailCell.configureCell(headline: "Author", content: nil)
-            } else if !authors.contains(", ") {
-                bookDetailCell.configureCell(headline: "Author", content: authors)
-            } else {
-                bookDetailCell.configureCell(headline: "Authors", content: authors)
-            }
-            cell = bookDetailCell
-        case 2:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Publisher", content: book.bookInformation.publisher)
-            cell = bookDetailCell
-        case 3:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Publication Date", date: book.bookInformation.publishedDate)
-            cell = bookDetailCell
-        case 4:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            if let language = book.bookInformation.language {
-                bookDetailCell.configureCell(headline: "Language", content: Locale.current.localizedString(forIdentifier: language))
-            } else {
-                bookDetailCell.configureCell(headline: "Language", content: nil)
-            }
-            cell = bookDetailCell
-        case 5:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "Pages", pages: book.bookInformation.pages)
-            cell = bookDetailCell
-        case 6:
-            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
-            bookDetailCell.configureCell(headline: "ISBN", content: book.bookInformation.isbn)
-            cell = bookDetailCell
-        default:
+        } else if indexPath.row == (numberOfCells - 1) {
             let bookDetailPreviewCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailPreviewCell", for: indexPath) as! BookDetailPreviewTableViewCell
-            bookDetailPreviewCell.configureCell(googlePreviewURL: book.bookInformation.googleBookURL)
+            bookDetailPreviewCell.configureCell(book: book)
             cell = bookDetailPreviewCell
-            
+        } else {
+            let bookDetailCell = tableView.dequeueReusableCell(withIdentifier: "BookDetailCell", for: indexPath) as! BookDetailTableViewCell
+            bookDetailCell.configureCell(book: book, index: indexPath.row)
+            cell = bookDetailCell
         }
         
         // Disable cell selection
         cell.selectionStyle = .none
         
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Self-sizing table view cell
-        return UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
