@@ -218,7 +218,11 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "BookDetailView") as! BookDetailTableViewController
         detailVC.detailViewState = DetailViewState.Share
-        detailVC.book = fetchedResultsController?.object(at: indexPath) as! Book
+        if notSearching {
+            detailVC.book = fetchedResultsController?.object(at: indexPath) as! Book
+        } else {
+            detailVC.book = filteredBooks![indexPath.row]
+        }
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
