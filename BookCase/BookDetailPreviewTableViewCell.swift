@@ -11,7 +11,7 @@ import UIKit
 class BookDetailPreviewTableViewCell: UITableViewCell {
     
     // MARK: Properties
-    var previewURL: String?
+    private var previewURLString: String?
     
     // MARK: - IBOutlets
     @IBOutlet weak var previewBookButton: UIButton!
@@ -31,12 +31,16 @@ class BookDetailPreviewTableViewCell: UITableViewCell {
     // MARK: - Cell Configuration
     func configureCell(book: Book) {
         // Disable Preview Button if no preview URL is set
-        previewBookButton.isEnabled = (book.bookInformation.googleBookURL != nil)
+        previewURLString = book.bookInformation.googleBookURL
+        previewBookButton.isEnabled = (previewURLString != nil)
     }
     
     // MARK: - IBActions
     @IBAction func previewBookTapped(_ sender: UIButton) {
+        guard let previewURLString = previewURLString, let previewURL = URL(string:previewURLString) else {
+            return
+        }
         // Open Google Books preview in Safari
-        UIApplication.shared.open(URL(string: previewURL!)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(previewURL, options: [:], completionHandler: nil)
     }
 }
