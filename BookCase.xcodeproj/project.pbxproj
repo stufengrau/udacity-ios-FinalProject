@@ -148,13 +148,13 @@
 		E24B10C51E79824E008FF55B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E2F15EAB1E86A020000F48A8 /* BookCoreData.swift */,
-				E2F15EAC1E86A020000F48A8 /* BookCoreDataProperties.swift */,
 				E24B10C61E798992008FF55B /* Book.swift */,
 				E25E82051E817AF6003DC4DB /* PublicationDate.swift */,
+				E25781451E91506F0030EC1D /* ShareMessageGenerator.swift */,
 				E2F15EA81E869EED000F48A8 /* BookCase.xcdatamodeld */,
 				E28FEE2C1E89376200DDE333 /* CoreDataStack.swift */,
-				E25781451E91506F0030EC1D /* ShareMessageGenerator.swift */,
+				E2F15EAB1E86A020000F48A8 /* BookCoreData.swift */,
+				E2F15EAC1E86A020000F48A8 /* BookCoreDataProperties.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
