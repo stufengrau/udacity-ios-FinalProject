@@ -17,7 +17,14 @@ extension BookCoreData {
         return NSFetchRequest<BookCoreData>(entityName: "Book");
     }
     
+    /* titleIndex was at first a computed property
+     but this had various negative side effects like following error:
+     CoreData: error: (NSFetchedResultsController) The fetched object at index x has an out of order section name 'X.
+     Objects must be sorted by section name'
+     */
+    
     @NSManaged public var title: String
+    @NSManaged public var titleIndex: String
     @NSManaged public var subtitle: String?
     @NSManaged public var authors: String
     @NSManaged public var publisher: String?

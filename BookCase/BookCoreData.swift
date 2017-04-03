@@ -35,10 +35,6 @@ public class BookCoreData: NSManagedObject, Book {
         return self.coverImage
     }
     
-    var titleIndex: String {
-        return String(title.uppercased().characters.first ?? Character(""))
-    }
-    
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
         if let coverImage = self.coverImage {
             completion(coverImage)
@@ -68,6 +64,7 @@ public class BookCoreData: NSManagedObject, Book {
         if let ent = NSEntityDescription.entity(forEntityName: "Book", in: context) {
             self.init(entity: ent, insertInto: context)
             self.title = book.bookInformation.title
+            self.titleIndex = String(title.uppercased().characters.first ?? Character(""))
             self.subtitle = book.bookInformation.subtitle
             self.authors = book.bookInformation.authors
             self.publisher = book.bookInformation.publisher

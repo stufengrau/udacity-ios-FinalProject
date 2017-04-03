@@ -13,6 +13,7 @@
         <attribute name="publisher" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="titleIndex" attributeType="String" indexed="YES" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="isbn"/>
@@ -26,6 +27,6 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="240"/>
     </elements>
 </model>

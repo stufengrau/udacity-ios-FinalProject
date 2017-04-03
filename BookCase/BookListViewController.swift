@@ -110,11 +110,15 @@ class BookListViewController: UIViewController {
         switch selectedSegmentIndex {
         // Sort by titel
         case 0:
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+            let sortByTitleIndex = NSSortDescriptor(key: "titleIndex", ascending: true)
+            let sortByTitle = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+            fetchRequest.sortDescriptors = [sortByTitleIndex, sortByTitle]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
         // Sort by author
         case 1:
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "authors", ascending: true)]
+            let sortByAuthor = NSSortDescriptor(key: "authors", ascending: true)
+            let sortByTitle = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+            fetchRequest.sortDescriptors = [sortByAuthor, sortByTitle]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.authors), cacheName: nil)
         default:
             assertionFailure("All segmented control indicies must be implemented.")
