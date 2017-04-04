@@ -48,7 +48,7 @@
 		E216700C1E7EE30400EB9E1E /* BookDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailTableViewCell.swift; sourceTree = "<group>"; };
 		E216700E1E7EE35600EB9E1E /* BookDetailCoverTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailCoverTableViewCell.swift; sourceTree = "<group>"; };
 		E21EDBA41E7EDC8D003EFD2E /* BookDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailTableViewController.swift; sourceTree = "<group>"; };
-		E24B10A81E7975DE008FF55B /* BookCase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookCase.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24B10A81E7975DE008FF55B /* Bookcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24B10AB1E7975DE008FF55B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E24B10AD1E7975DE008FF55B /* BookSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewController.swift; sourceTree = "<group>"; };
 		E24B10B01E7975DE008FF55B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		E24B10A91E7975DE008FF55B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E24B10A81E7975DE008FF55B /* BookCase.app */,
+				E24B10A81E7975DE008FF55B /* Bookcase.app */,
 				E2DE33151E7FE8F000975479 /* BookCaseUITests.xctest */,
 			);
 			name = Products;
@@ -211,7 +211,7 @@
 			);
 			name = BookCase;
 			productName = BookCase;
-			productReference = E24B10A81E7975DE008FF55B /* BookCase.app */;
+			productReference = E24B10A81E7975DE008FF55B /* Bookcase.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E2DE33141E7FE8F000975479 /* BookCaseUITests */ = {
@@ -462,7 +462,7 @@
 				INFOPLIST_FILE = BookCase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = stufengrau.BookCase;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Bookcase;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -475,7 +475,7 @@
 				INFOPLIST_FILE = BookCase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = stufengrau.BookCase;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Bookcase;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
