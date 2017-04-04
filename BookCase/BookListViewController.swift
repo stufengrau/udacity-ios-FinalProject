@@ -56,15 +56,13 @@ class BookListViewController: UIViewController {
         }
     }
     
-    fileprivate var inSearchMode: Bool! {
+    fileprivate var inSearchMode: Bool = false {
         didSet {
             selectedBookSorting.isEnabled = !inSearchMode
             if inSearchMode {
                 fetchRequest.sortDescriptors = [sortByTitle]
             } else {
                 fetchRequest.predicate = nil
-                bookSortMode = selectedBookSorting.selectedSegmentIndex
-                tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: true)
             }
         }
         
@@ -85,9 +83,6 @@ class BookListViewController: UIViewController {
             }
         }
     }
-    
-    fileprivate let darkBlue = UIColor(red: 0x38/0xFF, green: 0x53/0xFF, blue: 0x6D/0xFF, alpha: 1.0)
-    fileprivate let lightBlue = UIColor(red: 0x8F/0xFF, green: 0x9F/0xFF, blue: 0xAE/0xFF, alpha: 1.0)
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -145,7 +140,7 @@ class BookListViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 105.0;
         
-        // Table Header View contain Search Bar and hides it by default
+        // Table Header View contains Search Bar and hides it by default
         tableView.tableHeaderView = searchBar
         tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
     }
@@ -213,6 +208,8 @@ extension BookListViewController: UISearchBarDelegate {
         searchBar.text = nil
         
         inSearchMode = false
+        bookSortMode = selectedBookSorting.selectedSegmentIndex
+        tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: true)
         
     }
     
@@ -245,14 +242,14 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard !searching else { return nil }
+        guard !inSearchMode else { return nil }
         guard let sectionInfo = fetchedResultsController?.sections?[section] else { fatalError("Unexpected Section") }
         return sectionInfo.name.isEmpty ? "Unknown" : sectionInfo.name
     }
     
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = lightBlue
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.BookCaseColors.lightBlue
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
     }
     
