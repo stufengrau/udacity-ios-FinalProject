@@ -15,6 +15,7 @@ class BookListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var booksSortedBy: UISegmentedControl!
     @IBOutlet weak var emptyBookListHint: UILabel!
+    @IBOutlet weak var emptyBookListView: UIView!
     
     // MARK: - Properties
     fileprivate var stack: CoreDataStack {
@@ -44,15 +45,18 @@ class BookListViewController: UIViewController {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.tableView.alpha = 0
                     self.booksSortedBy.alpha = 0
-                    self.emptyBookListHint.alpha = 1
+                    self.emptyBookListView.alpha = 1
                 })
             } else {
                 tableView.alpha = 1
                 booksSortedBy.alpha = 1
-                emptyBookListHint.alpha = 0
+                emptyBookListView.alpha = 0
             }
         }
     }
+    
+    fileprivate let darkBlue = UIColor(red: 0x38/0xFF, green: 0x53/0xFF, blue: 0x6D/0xFF, alpha: 1.0)
+    fileprivate let lightBlue = UIColor(red: 0x8F/0xFF, green: 0x9F/0xFF, blue: 0xAE/0xFF, alpha: 1.0)
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -81,13 +85,23 @@ class BookListViewController: UIViewController {
         searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.sizeToFit()
+        searchBar.barTintColor = darkBlue
         tableView.tableHeaderView = searchBar
         tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
+        
+        emptyBookListView.backgroundColor = UIColor.white
+        emptyBookListView.alpha = 0
         
         if !(tableView.visibleCells.count > 0) {
             tableView.alpha = 0
             booksSortedBy.alpha = 0
-            emptyBookListHint.alpha = 1
+            emptyBookListView.alpha = 1
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = tableView.indexPathForSelectedRow{
+            tableView.deselectRow(at: index, animated: true)
         }
     }
     
@@ -161,6 +175,7 @@ extension BookListViewController: UISearchBarDelegate {
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         let searchPredicate = NSPredicate(format: "(title contains[c] $text) OR (authors contains[c] $text) OR (publisher contains[c] $text) OR (isbn contains[c] $text)").withSubstitutionVariables(["text" : searchText])
+        
         if searchText.isEmpty {
             fetchRequest.predicate = nil
         } else {
@@ -219,6 +234,12 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
         return sectionInfo.name.isEmpty ? "Unknown" : sectionInfo.name
     }
     
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = lightBlue
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "BookOverviewCell"
@@ -242,6 +263,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
             stack.save()
         }
     }
+    
 }
 
 extension BookListViewController: NSFetchedResultsControllerDelegate {
