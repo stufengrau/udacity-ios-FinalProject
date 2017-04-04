@@ -73,7 +73,7 @@ class BookListViewController: UIViewController {
             if bookListIsEmpty {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.tableView.alpha = 0
-                    self.booksSortedBy.alpha = 0
+                    self.selectedBookSorting.alpha = 0
                     self.emptyBookListView.alpha = 1
                 })
             } else {
@@ -129,7 +129,7 @@ class BookListViewController: UIViewController {
         searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.sizeToFit()
-        searchBar.barTintColor = darkBlue
+        searchBar.barTintColor = UIColor.BookCaseColors.darkBlue
     }
     
     private func configureTableView() {
