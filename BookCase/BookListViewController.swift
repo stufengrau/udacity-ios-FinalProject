@@ -210,11 +210,8 @@ extension BookListViewController: UISearchBarDelegate {
         inSearchMode = false
         bookSortMode = selectedBookSorting.selectedSegmentIndex
         tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: true)
+        searchBar.setShowsCancelButton(false, animated: false)
         
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
