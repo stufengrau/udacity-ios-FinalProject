@@ -13,31 +13,62 @@ class BookListViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var booksSortedBy: UISegmentedControl!
-    @IBOutlet weak var emptyBookListHint: UILabel!
+    @IBOutlet weak var selectedBookSorting: UISegmentedControl!
     @IBOutlet weak var emptyBookListView: UIView!
     
     // MARK: - Properties
+    fileprivate var searchBar: UISearchBar!
+    
+    private let selectedBookSortingKey = "Sort by"
+    
+    private let sortByTitleIndex = NSSortDescriptor(key: "titleIndex", ascending: true)
+    private let sortByAuthor = NSSortDescriptor(key: "authors", ascending: true)
+    private let sortByTitle = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+    
     fileprivate var stack: CoreDataStack {
         let delegate = UIApplication.shared.delegate as! AppDelegate
         return delegate.stack
     }
     
-    fileprivate var fetchRequest: NSFetchRequest<NSFetchRequestResult>!
+    fileprivate var fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
     
     fileprivate var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
-            // Whenever the frc changes, we execute the search and reload the data
+            // Whenever the frc changes, execute the search and reload the data
             fetchedResultsController?.delegate = self
             executeSearch()
             tableView.reloadData()
         }
     }
     
-    private let sortByKey = "Sort by"
+    fileprivate var bookSortMode: Int! {
+        didSet {
+            switch bookSortMode {
+            case 0:
+                fetchRequest.sortDescriptors = [sortByTitleIndex, sortByTitle]
+                fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
+            case 1:
+                fetchRequest.sortDescriptors = [sortByAuthor, sortByTitle]
+                fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.authors), cacheName: nil)
+            default:
+                assertionFailure("All segmented control indicies must be implemented.")
+            }
+        }
+    }
     
-    fileprivate var searchBar: UISearchBar!
-    fileprivate var searching = false
+    fileprivate var inSearchMode: Bool! {
+        didSet {
+            selectedBookSorting.isEnabled = !inSearchMode
+            if inSearchMode {
+                fetchRequest.sortDescriptors = [sortByTitle]
+            } else {
+                fetchRequest.predicate = nil
+                bookSortMode = selectedBookSorting.selectedSegmentIndex
+                tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: true)
+            }
+        }
+        
+    }
     
     fileprivate var bookListIsEmpty: Bool! {
         didSet {
@@ -49,7 +80,7 @@ class BookListViewController: UIViewController {
                 })
             } else {
                 tableView.alpha = 1
-                booksSortedBy.alpha = 1
+                selectedBookSorting.alpha = 1
                 emptyBookListView.alpha = 0
             }
         }
@@ -67,36 +98,15 @@ class BookListViewController: UIViewController {
             showAlert(title: "API Key missing", message: "Please provide a Goolge Books API Key in the GoogleBooksAPIKey.swift file.")
         }
         
-        // Register Book Overview Cell
-        tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
-        
-        // Self-Sizing Table View Cells
-        tableView.rowHeight = UITableViewAutomaticDimension;
-        tableView.estimatedRowHeight = 105.0;
-        
-        // Sort results by saved segmented control state
-        booksSortedBy.selectedSegmentIndex = UserDefaults.standard.integer(forKey: sortByKey)
-        
-        fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Book")
         fetchRequest.fetchBatchSize = 20
-        sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
         
-        // Configure Search Bar
-        searchBar = UISearchBar()
-        searchBar.delegate = self
-        searchBar.sizeToFit()
-        searchBar.barTintColor = darkBlue
-        tableView.tableHeaderView = searchBar
-        tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
-        
-        emptyBookListView.backgroundColor = UIColor.white
-        emptyBookListView.alpha = 0
-        
-        if !(tableView.visibleCells.count > 0) {
-            tableView.alpha = 0
-            booksSortedBy.alpha = 0
-            emptyBookListView.alpha = 1
-        }
+        // Sort books by saved segmented control state
+        selectedBookSorting.selectedSegmentIndex = UserDefaults.standard.integer(forKey: selectedBookSortingKey)
+        bookSortMode = selectedBookSorting.selectedSegmentIndex
+
+        configureSearchBar()
+        configureTableView()
+        setupIntialView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,7 +117,10 @@ class BookListViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func sortBooksBy(_ sender: UISegmentedControl) {
-        sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
+        if sender == selectedBookSorting {
+            UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: selectedBookSortingKey)
+            bookSortMode = sender.selectedSegmentIndex
+        }
     }
     
     // MARK: - Helper functions
@@ -117,25 +130,36 @@ class BookListViewController: UIViewController {
         }
     }
     
-    // TODO: Refactor ...
-    fileprivate func sortFetchedResultsBy(selectedSegmentIndex: Int) {
-        // Save segmented control state in UserDefaults
-        UserDefaults.standard.set(selectedSegmentIndex, forKey: sortByKey)
-        switch selectedSegmentIndex {
-        // Sort by titel
-        case 0:
-            let sortByTitleIndex = NSSortDescriptor(key: "titleIndex", ascending: true)
-            let sortByTitle = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
-            fetchRequest.sortDescriptors = [sortByTitleIndex, sortByTitle]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.titleIndex), cacheName: nil)
-        // Sort by author
-        case 1:
-            let sortByAuthor = NSSortDescriptor(key: "authors", ascending: true)
-            let sortByTitle = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
-            fetchRequest.sortDescriptors = [sortByAuthor, sortByTitle]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: stack.context, sectionNameKeyPath: #keyPath(BookCoreData.authors), cacheName: nil)
-        default:
-            assertionFailure("All segmented control indicies must be implemented.")
+    private func configureSearchBar() {
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        searchBar.barTintColor = darkBlue
+    }
+    
+    private func configureTableView() {
+        // Register Book Overview Cell
+        tableView.register(UINib(nibName: "BookOverviewTableViewCell", bundle: nil), forCellReuseIdentifier: "BookOverviewCell")
+        
+        // Self-Sizing Table View Cells
+        tableView.rowHeight = UITableViewAutomaticDimension;
+        tableView.estimatedRowHeight = 105.0;
+        
+        // Table Header View contain Search Bar and hides it by default
+        tableView.tableHeaderView = searchBar
+        tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: false)
+    }
+    
+    private func setupIntialView() {
+        
+        emptyBookListView.backgroundColor = UIColor.white
+        
+        if !(tableView.visibleCells.count > 0) {
+            tableView.alpha = 0
+            selectedBookSorting.alpha = 0
+            emptyBookListView.alpha = 1
+        } else {
+            emptyBookListView.alpha = 0
         }
     }
     
@@ -169,10 +193,7 @@ extension BookListViewController: UISearchBarDelegate {
      */
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        searching = true
-        booksSortedBy.isEnabled = false
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        inSearchMode = true
         
         let searchPredicate = NSPredicate(format: "(title contains[c] $text) OR (authors contains[c] $text) OR (publisher contains[c] $text) OR (isbn contains[c] $text)").withSubstitutionVariables(["text" : searchText])
         
@@ -191,12 +212,7 @@ extension BookListViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.text = nil
         
-        searching = false
-        booksSortedBy.isEnabled = true
-        
-        fetchRequest.predicate = nil
-        sortFetchedResultsBy(selectedSegmentIndex: booksSortedBy.selectedSegmentIndex)
-        tableView.setContentOffset(CGPoint(x: 0, y: searchBar.frame.height), animated: true)
+        inSearchMode = false
         
     }
     
@@ -218,7 +234,7 @@ extension BookListViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard !searching else { return 1 }
+        guard !inSearchMode else { return 1 }
         guard let sections = fetchedResultsController?.sections else { return 0 }
         return sections.count
     }
@@ -282,8 +298,7 @@ extension BookListViewController: NSFetchedResultsControllerDelegate {
         case .delete:
             tableView.deleteSections(set, with: .fade)
         default:
-            // irrelevant in our case
-            break
+            assertionFailure("The NSFetchedResultsChangeType \(type) for a section info is not covered")
         }
     }
     
@@ -296,15 +311,15 @@ extension BookListViewController: NSFetchedResultsControllerDelegate {
             tableView.deleteRows(at: [indexPath!], with: .fade)
         case .update:
             tableView.reloadRows(at: [indexPath!], with: .fade)
-        case .move:
-            assertionFailure("move")
+        default:
+            assertionFailure("The NSFetchedResultsChangeType \(type) for an object is not covered")
         }
         
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
-        bookListIsEmpty = !(tableView.visibleCells.count > 0) && !searching
+        bookListIsEmpty = !(tableView.visibleCells.count > 0) && !inSearchMode
     }
     
 }

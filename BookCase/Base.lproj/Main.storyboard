@@ -339,9 +339,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="booksSortedBy" destination="0be-z3-Sud" id="JCc-Hs-SDg"/>
-                        <outlet property="emptyBookListHint" destination="hpg-56-8eB" id="lPn-J1-eEj"/>
                         <outlet property="emptyBookListView" destination="pwN-PQ-e2d" id="4Gd-ve-jH0"/>
+                        <outlet property="selectedBookSorting" destination="0be-z3-Sud" id="961-Pb-U7H"/>
                         <outlet property="tableView" destination="uVT-cx-eus" id="rHj-mT-LBz"/>
                     </connections>
                 </viewController>
