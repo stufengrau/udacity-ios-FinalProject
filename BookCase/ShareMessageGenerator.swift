@@ -18,7 +18,9 @@ struct ShareMessageGenerator {
         case Error(String, String)
     }
     
+    // MARK: - Generate share Message
     var shareMessage: Message {
+        // Check if Google Books Preview URL is available
         guard let shareURL = book.bookInformation.googleBookURL else {
             return .Error("Missing Preview URL", "Sorry, there is no URL available to share for this book.")
         }

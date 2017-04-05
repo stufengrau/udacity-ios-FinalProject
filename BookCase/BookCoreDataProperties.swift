@@ -21,6 +21,10 @@ extension BookCoreData {
      but this had various negative side effects like following error:
      CoreData: error: (NSFetchedResultsController) The fetched object at index x has an out of order section name 'X.
      Objects must be sorted by section name'
+     http://stackoverflow.com/questions/12150101/core-data-the-fetched-object-at-index-x-has-an-out-of-order-section-name-xxxxx
+     Since it was a computed property the sort descriptor couldn't be set to titleIndex and was instead set to title
+     Just the key selector in the FetchedResultsController was set to titleIndex
+     -> titleIndex is now a managed attribute
      */
     
     @NSManaged public var title: String

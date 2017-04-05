@@ -36,35 +36,19 @@ class BookDetailTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 44.0;
         
+        // Right Navigation Button could be Save or Share (Activity View)
         navigationItem.rightBarButtonItem = makeRightNavigationBarButtonItem()
         
     }
     
-    func saveBook(sender: UIBarButtonItem) {
-        _ = BookCoreData(book: book, context: stack.context)
-        stack.save()
-        _ = navigationController?.popViewController(animated: true)
-    }
-    
-    func shareBook(sender: UIBarButtonItem) {
-        
-        switch ShareMessageGenerator(book: book).shareMessage {
-        case .Info(let shareMessage):
-            let activityController = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
-            present(activityController, animated: true, completion: nil)
-        case .Error(let errorTitel, let errorMessage):
-            showAlert(title: errorTitel, message: errorMessage)
-        }
-        
-    }
-    
+    // MARK: - Helper functions to save or share a book
+    // Save or Share Button
     private func makeRightNavigationBarButtonItem() -> UIBarButtonItem? {
-        
+        // Check if state is set to decide which kind of button is needed
         guard let detailViewState = detailViewState else {
             assertionFailure("detailViewState not set!")
             return nil
         }
-        
         switch detailViewState {
         case .SaveBook:
             return UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(saveBook(sender:)))
@@ -72,6 +56,25 @@ class BookDetailTableViewController: UITableViewController {
             return UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: #selector(shareBook(sender:)))
         }
         
+    }
+    
+    // Save a book to book list (Core Data) and dismiss view
+    func saveBook(sender: UIBarButtonItem) {
+        _ = BookCoreData(book: book, context: stack.context)
+        stack.save()
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    // Share a book if a Google Books Preview URL is available
+    // else show an alert with an error message
+    func shareBook(sender: UIBarButtonItem) {
+        switch ShareMessageGenerator(book: book).shareMessage {
+        case .Info(let shareMessage):
+            let activityController = UIActivityViewController(activityItems: [shareMessage], applicationActivities: nil)
+            present(activityController, animated: true, completion: nil)
+        case .Error(let errorTitel, let errorMessage):
+            showAlert(title: errorTitel, message: errorMessage)
+        }
     }
     
     
@@ -116,6 +119,5 @@ class BookDetailTableViewController: UITableViewController {
         // Disable cell selection
         return nil
     }
-    
     
 }

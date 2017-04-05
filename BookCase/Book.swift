@@ -8,7 +8,10 @@
 
 import UIKit
 
-// TODO: Refactor Book Protocol!
+// MARK: -
+// Book Detail View and Book Overview Cell expect type "Book"
+// A "Book" can be a Core Data Object or a book from the Google Books search result
+// To prevent fetching the image multiple times, cache the image
 protocol Book {
     var bookInformation: BookInformation { get }
     var cachedCoverImage: UIImage? { get }
@@ -16,12 +19,13 @@ protocol Book {
 }
 
 // MARK: -
+// To provide image caching for the Google Books API search results
 class BookImageCaching: Book {
     
     // MARK: - Properties
     let bookInformation: BookInformation
     var cachedCoverImage: UIImage?
-
+    
     // MARK: - Initializer
     init(bookInformation: BookInformation) {
         self.bookInformation = bookInformation
@@ -29,11 +33,15 @@ class BookImageCaching: Book {
     }
     
     // MARK: - Fetch cover image
+    // Fetch the cover image via network request, if no cached Image is available
     func fetchCoverImage(completion: @escaping (_ coverImage: UIImage?) -> Void) {
+        // Cached Image available
         if let coverImage = self.cachedCoverImage {
             completion(coverImage)
         } else {
+            // URL available for cover Image?
             if let coverImageURL = bookInformation.coverURL {
+                // Try to get the image data via network request
                 GoogleBooksAPI.shared.getBookImage(for: coverImageURL, completionHandler: { (data) in
                     guard let imageData = data else {
                         completion(nil)
@@ -47,10 +55,10 @@ class BookImageCaching: Book {
             }
         }
     }
-    
 }
 
 // MARK: -
+// To save the Google Books API search results
 class BookLibrary {
     
     // MARK: - Properties
@@ -123,7 +131,6 @@ struct BookInformation {
         return BookInformation(title: title, subtitle: subtitle, authors: authors, publisher: publisher, publishedDate: publishedDate, pages: pages, language: language, isbn: isbn, googleBookURL: googleBookURL, coverURL: coverURL)
         
     }
-    
 }
 
 // MARK: -

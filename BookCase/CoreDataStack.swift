@@ -6,6 +6,11 @@
 //  Copyright © 2017 stufengrau. All rights reserved.
 //
 
+/*
+ This class is mainly from the Cool Notes Project from the Udacity
+ iOS Developer Nanodegree Program - iOS Networking Course
+ */
+
 import CoreData
 
 // MARK: - CoreDataStack
@@ -62,7 +67,7 @@ struct CoreDataStack {
         self.dbURL = docUrl.appendingPathComponent("model.sqlite")
         
         // Options for migration
-        let options = [NSInferMappingModelAutomaticallyOption: true,NSMigratePersistentStoresAutomaticallyOption: true]
+        let options = [NSInferMappingModelAutomaticallyOption: true, NSMigratePersistentStoresAutomaticallyOption: true]
         
         do {
             try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: options as [NSObject : AnyObject]?)
@@ -85,12 +90,11 @@ extension CoreDataStack {
     func save()  {
         if context.hasChanges {
             do {
-                try self.context.save()
+                try context.save()
             } catch {
                 fatalError("Error while saving main context: \(error)")
             }
         }
     }
-    
 }
 

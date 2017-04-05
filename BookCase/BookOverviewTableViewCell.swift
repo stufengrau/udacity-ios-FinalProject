@@ -22,20 +22,17 @@ class BookOverviewTableViewCell: UITableViewCell {
     // MARK: -
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     // MARK: - Cell Configuration
     func configureCell(book: Book) {
         
         // Overwriting the fetcher effectively cancels previous still running fetch request
-        fetcher = ImageFetcher(view: self.bookThumbnail)
+        fetcher = ImageFetcher(view: bookThumbnail)
         
         // Reset book Cover image
         bookThumbnail.image = nil

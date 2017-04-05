@@ -8,6 +8,9 @@
 
 import Foundation
 
+// Format publication dates correctly
+// From isoDateString to Date
+// From Date to a custom description
 struct PublicationDate: CustomStringConvertible {
     
     // MARK: - Properties
@@ -17,7 +20,7 @@ struct PublicationDate: CustomStringConvertible {
     // Return a custom description for the different date types
     var description: String {
         let dateFormatter = DateFormatter()
-        switch self.dateType {
+        switch dateType {
         case .Year:
             dateFormatter.dateFormat = "yyyy"
         case .YearMonth:
@@ -25,7 +28,7 @@ struct PublicationDate: CustomStringConvertible {
         case .YearMonthDay:
             dateFormatter.dateStyle = DateFormatter.Style.long
         }
-        return dateFormatter.string(from: self.date)
+        return dateFormatter.string(from: date)
     }
     
     // The dates returned by Google Books are ISO-formatted strings
@@ -38,6 +41,7 @@ struct PublicationDate: CustomStringConvertible {
         static let allValues = [Year, YearMonth, YearMonthDay]
     }
     
+    // MARK: - Convert isoDateString to Date
     static func from(isoDate: String?) -> PublicationDate?{
         guard let isoDate = isoDate else {
             return nil
@@ -50,11 +54,10 @@ struct PublicationDate: CustomStringConvertible {
         for dateType in DateType.allValues {
             dateFormatter.dateFormat = dateType.rawValue
             if let date = dateFormatter.date(from: isoDate) {
-                // If a date could be formatted, store values and return
+                // If a format matched, store values and return
                 return PublicationDate(date: date, dateType: dateType)
             }
         }
-        
         // No valid date present
         return nil
     }

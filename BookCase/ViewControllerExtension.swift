@@ -11,11 +11,12 @@ import UIKit
 
 extension UIViewController {
     
+    // Show alert message
     func showAlert(title: String?, message errormessage: String) {
         let alertController = UIAlertController(title: title, message: errormessage, preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alertController.addAction(dismissAction)
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
 }
