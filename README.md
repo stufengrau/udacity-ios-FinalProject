@@ -9,8 +9,8 @@ https://www.udacity.com/course/ios-developer-nanodegree--nd003
 * [Project Details](#projectdetails)<br />
 * [User Interface](#ui)<br />
 * [App Demo](#demo)<br />
-* [Feature Wishlist](#features)<br />
-* [App Requirements](#appreq)
+* [App Requirements](#appreq)<br />
+* [Feature Wishlist](#features)
 
 <a name="description">
 
@@ -107,6 +107,13 @@ By selecting a book, a detail view will open and the book can be saved and will 
 There is an UITest named `testAppDemo()` which gives a quick demo of the app. A Google Book API Key is required 
 to run this test.
 
+<a name="appreq">
+
+## App Requirements
+
+The required Google Books API Key is not included in this repository and must be provided 
+in the GoogleBooksAPIKey.swift file.
+
 <a name="features">
 
 ## Feature Wishlist
@@ -129,10 +136,3 @@ Some ideas for additional features:
 * Include Book Ratings
 * iPad Version
 * ...
-
-<a name="appreq">
-
-## App Requirements
-
-The required Google Books API Key is not included in this repository and must be provided 
-in the GoogleBooksAPIKey.swift file.
