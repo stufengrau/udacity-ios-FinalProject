@@ -53,7 +53,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         
         googleBooksSearchBar.resignFirstResponder()
         
-        // Hide eventually visible views from earlier search
+        // Hide potentially visible views from an earlier search
         nothingFoundView.isHidden = true
         searchResultTableView.isHidden = true
         
