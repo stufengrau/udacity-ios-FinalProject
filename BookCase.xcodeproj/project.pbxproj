@@ -48,7 +48,7 @@
 		E24B10A81E7975DE008FF55B /* Bookcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24B10AB1E7975DE008FF55B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E24B10B01E7975DE008FF55B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E24B10B21E7975DE008FF55B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = BookCase/Assets.xcassets; sourceTree = "<group>"; };
+		E24B10B21E7975DE008FF55B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = BookCase/Assets/Assets.xcassets; sourceTree = "<group>"; };
 		E24B10B51E7975DE008FF55B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E24B10B71E7975DE008FF55B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2ABB2311EB0D06D0009D154 /* GoogleBooksAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleBooksAPI.swift; path = NetworkAPI/GoogleBooksAPI.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 				E24B10B01E7975DE008FF55B /* Base */,
 			);
 			name = Main.storyboard;
-			path = BookCase;
+			path = BookCase/Assets;
 			sourceTree = "<group>";
 		};
 		E24B10B41E7975DE008FF55B /* LaunchScreen.storyboard */ = {
@@ -357,7 +357,7 @@
 				E24B10B51E7975DE008FF55B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = BookCase;
+			path = BookCase/Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
