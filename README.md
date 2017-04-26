@@ -16,7 +16,7 @@ https://www.udacity.com/course/ios-developer-nanodegree--nd003
 
 ## App Description
 
-This app allows users to create their own book list by adding books from an online search (Google Books API). The user can search e.g. for a book title, an author or an ISBN. Once the search results are displayed in a table view, the user user can select a book to open a detail view of this book. In the detail view the book can be saved adding it to the book list. 
+This app allows users to create their own book list by adding books from an online search (Google Books API). The user can search e.g. for a book title, an author or an ISBN. Once the search results are displayed in a table view, the user can select a book to open a detail view of this book. In the detail view the book can be saved adding it to the book list. 
 
 Furthermore a preview of the book can be opened in Safari by clicking on the "Preview on Google Books" button in the detail view of the book.
 
